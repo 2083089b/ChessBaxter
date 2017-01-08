@@ -13,9 +13,8 @@ orb = cv2.ORB_create(edgeThreshold=4)
 
 kp1, des1 = orb.detectAndCompute(img1,None)
 kp2, des2 = orb.detectAndCompute(img2,None)
-kp3, des3 = orb.detectAndCompute(img3,None)
 
-print "number of keypoints in img3: " + str(len(des3))
+print "number of keypoints in img2: " + str(len(des2))
 #for kp in kp1:
 #    cv2.circle(img1, (int(kp.pt[0]),int(kp.pt[1])), 3, (0, 0, 0), 1)
 
@@ -31,24 +30,18 @@ for c, des in enumerate(des2):
     if c < 50:
         final2.append(des)
 
-c = 0
-final3 = []
-for c, des in enumerate(des3):
-    if c < 50:
-        final3.append(des)
 
 # Save to a file for future use
 joblib.dump(final,'descriptors/white_pawn.pkl')
 joblib.dump(final2,'descriptors/black_knight.pkl')
-joblib.dump(final3,'descriptors/white_pawn20.pkl')
 
 clf = svm.SVC()
 
-X = np.concatenate((final,final2,final3))
+X = np.concatenate((final,final2))
 
 
 y = np.ones((len(final), 1))
-y = np.concatenate((y,np.zeros((len(final), 1))))
+y = np.ravel(np.concatenate((y,np.zeros((len(final2), 1)))))
 
 
 print clf.fit(X,y)
