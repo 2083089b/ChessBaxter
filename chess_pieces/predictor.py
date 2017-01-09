@@ -6,7 +6,7 @@ from sklearn.externals import joblib
 
 ### Read image and compute keypoints and descriptors ###
 
-img_name = 'white_pawn20.png'
+img_name = 'white_pawn/white_pawn20.png'
 img1 = cv2.imread(img_name,0)
 
 orb = cv2.ORB_create(edgeThreshold=4)
@@ -20,10 +20,8 @@ for c, des in enumerate(des1):
         final.append(des)
 
 ### Load classifier from a pickle file ###
-clf = joblib.load('classifier/clf.pkl')
+clf = joblib.load('classifiers/white_rock_classifier.pkl')
 
-#des = joblib.load('descriptors/black_knight.pkl')
-#print len(des)
 result = clf.predict(final)
 
 it_is = 0
@@ -36,6 +34,6 @@ for elem in result:
         it_is_not += 1
 
 if it_is:
-    print ("It's a: " + img_name[:-4])
+    print ("It's a: White Rock")
 else:
-    print ("The rest")
+    print ("Not a white rock")

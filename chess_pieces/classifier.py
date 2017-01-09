@@ -14,7 +14,7 @@ orb = cv2.ORB_create(edgeThreshold=4)
 kp1, des1 = orb.detectAndCompute(img1,None)
 kp2, des2 = orb.detectAndCompute(img2,None)
 
-print "number of keypoints in img2: " + str(len(des2))
+print "number of descriptors in img2: " + str(len(des2))
 #for kp in kp1:
 #    cv2.circle(img1, (int(kp.pt[0]),int(kp.pt[1])), 3, (0, 0, 0), 1)
 
