@@ -201,6 +201,6 @@ draw_params = dict(matchColor = (0,255,0), # draw matches in green color
 
 
 img3 = drawMatches(img1,kp1,img2,kp2,good)
-cv2.imshow('yes',img3)
+cv2.imshow('Chessboard Detection',img3)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
