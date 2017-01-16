@@ -102,105 +102,107 @@ def chessboard_segmentation(img1):
     #cv2.destroyAllWindows()
     return list_of_points
 
+def chessboard_homography():
+    MIN_MATCH_COUNT = 10
 
-MIN_MATCH_COUNT = 10
+    img1 = cv2.imread('/home/lorenzo/catkin_ws/src/chessboard_detection/src/my_chessboard.png',0)
 
-img1 = cv2.imread('/home/lorenzo/catkin_ws/src/chessboard_detection/src/my_chessboard.png',0)
+    # Retrieve list of files in the folder where the pictures are
+    list_of_pictures = sorted(glob.glob("kinect_images/*.jpeg"))
 
-# Retrieve list of files in the folder where the pictures are
-list_of_pictures = sorted(glob.glob("kinect_images/*.jpeg"))
+    # If there exist files - ie pictures - in that folder, retrieve the latest one
+    if(len(list_of_pictures)!=0):
+        # Take the last picture taken and its number to process it
+        counter = list_of_pictures[-1][-6]
+        img2 = cv2.imread('/home/lorenzo/catkin_ws/src/chessboard_detection/src/kinect_images/camera_image'+str(counter)+'.jpeg',0)
 
-# If there exist files - ie pictures - in that folder, retrieve the latest one
-if(len(list_of_pictures)!=0):
-    # Take the last picture taken and its number to process it
-    counter = list_of_pictures[-1][-6]
-    img2 = cv2.imread('/home/lorenzo/catkin_ws/src/chessboard_detection/src/kinect_images/camera_image'+str(counter)+'.jpeg',0)
+    # Else loop until a picture appears in that folder
+    else:
+        while(len(list_of_pictures)==0):
+            print ("...waiting for a picture...")
+            time.sleep(5)
+            list_of_pictures = glob.glob("kinect_images/*.jpeg")
+            if(len(list_of_pictures)!=0):
+                # Take the last picture taken and its number to process it
+                counter = list_of_pictures[-1][-6]
+                img2 = cv2.imread('/home/lorenzo/catkin_ws/src/chessboard_detection/src/kinect_images/camera_image'+str(counter)+'.jpeg',0)
 
-# Else loop until a picture appears in that folder
-else:
-    while(len(list_of_pictures)==0):
-        print ("...waiting for a picture...")
-        time.sleep(5)
-        list_of_pictures = glob.glob("kinect_images/*.jpeg")
-        if(len(list_of_pictures)!=0):
-            # Take the last picture taken and its number to process it
-            counter = list_of_pictures[-1][-6]
-            img2 = cv2.imread('/home/lorenzo/catkin_ws/src/chessboard_detection/src/kinect_images/camera_image'+str(counter)+'.jpeg',0)
-
-#rospy.init_node('image_processor')
-
-
-# Initiate SIFT detector
-#siftkp = cv2.FeatureDetector_create("SIFT")
-#siftdesc = cv2.DescriptorExtractor_create("SIFT")
-siftdesc = cv2.xfeatures2d.SIFT_create()
-
-(kp1, des1) = siftdesc.detectAndCompute(img1, None)
-#kp1 = siftkp.detect(img1)
-#(kp1, des1) = siftdesc.compute(img1, kp1)
-
-(kp2, des2) = siftdesc.detectAndCompute(img2, None)
-#kp2 = siftkp.detect(img2)
-#(kp2, des2) = siftdesc.compute(img2, kp2)
+    #rospy.init_node('image_processor')
 
 
-FLANN_INDEX_KDTREE = 0
-index_params = dict(algorithm = FLANN_INDEX_KDTREE, trees = 5)
-search_params = dict(checks = 50)
+    # Initiate SIFT detector
+    #siftkp = cv2.FeatureDetector_create("SIFT")
+    #siftdesc = cv2.DescriptorExtractor_create("SIFT")
+    siftdesc = cv2.xfeatures2d.SIFT_create()
 
-flann = cv2.FlannBasedMatcher(index_params, search_params)
+    (kp1, des1) = siftdesc.detectAndCompute(img1, None)
+    #kp1 = siftkp.detect(img1)
+    #(kp1, des1) = siftdesc.compute(img1, kp1)
 
-matches = flann.knnMatch(des1,des2,k=2)
-
-# store all the good matches as per Lowe's ratio test.
-good = []
-for m,n in matches:
-    if m.distance < 0.7*n.distance:
-        good.append(m)
-
+    (kp2, des2) = siftdesc.detectAndCompute(img2, None)
+    #kp2 = siftkp.detect(img2)
+    #(kp2, des2) = siftdesc.compute(img2, kp2)
 
 
-if len(good)>MIN_MATCH_COUNT:
-    src_pts = np.float32([ kp1[m.queryIdx].pt for m in good ]).reshape(-1,1,2)
-    dst_pts = np.float32([ kp2[m.trainIdx].pt for m in good ]).reshape(-1,1,2)
+    FLANN_INDEX_KDTREE = 0
+    index_params = dict(algorithm = FLANN_INDEX_KDTREE, trees = 5)
+    search_params = dict(checks = 50)
 
-    M, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC,5.0)
-    matchesMask = mask.ravel().tolist()
+    flann = cv2.FlannBasedMatcher(index_params, search_params)
 
-    h,w = img1.shape
-    pts = np.float32([ [0,0],[0,h-1],[w-1,h-1],[w-1,0] ]).reshape(-1,1,2)
-    dst = cv2.perspectiveTransform(pts,M)
-    cv2.polylines(img2,[np.int32(dst)],True,255,3)
-    list_of_points = chessboard_segmentation(img1)
-    pts2 = np.float32(list_of_points).reshape(-1,1,2)
-    dst2 = cv2.perspectiveTransform(pts2,M)
+    matches = flann.knnMatch(des1,des2,k=2)
 
-    # Insert each point in a list of tuples: [(x1,y1),(x2,y2)...(xn,yn)]
-    actual_list_of_points = []
-    for point in dst2:
-        actual_list_of_points.append((point[0][0],point[0][1]))
-
-    # Draw a line between every pair of points
-    c = 0
-    while(c<len(actual_list_of_points)-1):
-        pt1 = actual_list_of_points[c]
-        pt2 = actual_list_of_points[c+1]
-        cv2.line(img2,pt1,pt2,0,3)
-        c += 2
+    # store all the good matches as per Lowe's ratio test.
+    good = []
+    for m,n in matches:
+        if m.distance < 0.7*n.distance:
+            good.append(m)
 
 
-else:
-    print ("Not enough matches are found - %d/%d" % (len(good),MIN_MATCH_COUNT))
-    matchesMask = None
+
+    if len(good)>MIN_MATCH_COUNT:
+        src_pts = np.float32([ kp1[m.queryIdx].pt for m in good ]).reshape(-1,1,2)
+        dst_pts = np.float32([ kp2[m.trainIdx].pt for m in good ]).reshape(-1,1,2)
+
+        M, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC,5.0)
+        matchesMask = mask.ravel().tolist()
+
+        h,w = img1.shape
+        pts = np.float32([ [0,0],[0,h-1],[w-1,h-1],[w-1,0] ]).reshape(-1,1,2)
+        dst = cv2.perspectiveTransform(pts,M)
+        cv2.polylines(img2,[np.int32(dst)],True,255,3)
+        list_of_points = chessboard_segmentation(img1)
+        pts2 = np.float32(list_of_points).reshape(-1,1,2)
+        dst2 = cv2.perspectiveTransform(pts2,M)
+
+        # Insert each point in a list of tuples: [(x1,y1),(x2,y2)...(xn,yn)]
+        actual_list_of_points = []
+        for point in dst2:
+            actual_list_of_points.append((point[0][0],point[0][1]))
+
+        # Draw a line between every pair of points
+        c = 0
+        while(c<len(actual_list_of_points)-1):
+            pt1 = actual_list_of_points[c]
+            pt2 = actual_list_of_points[c+1]
+            if c > len(actual_list_of_points)-3:
+                #cv2.circle(img2, (pt1), 10, (255, 0, 0), 10)
+                print pt1
+                print pt2
+            cv2.line(img2,pt1,pt2,0,3)
+            c += 2
 
 
-draw_params = dict(matchColor = (0,255,0), # draw matches in green color
-                   singlePointColor = None,
-                   matchesMask = matchesMask, # draw only inliers
-                   flags = 2)
+    else:
+        print ("Not enough matches are found - %d/%d" % (len(good),MIN_MATCH_COUNT))
+        matchesMask = None
 
 
-img3 = drawMatches(img1,kp1,img2,kp2,good)
-cv2.imshow('Chessboard Detection',img3)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+    draw_params = dict(matchColor = (0,255,0), # draw matches in green color
+                       singlePointColor = None,
+                       matchesMask = matchesMask, # draw only inliers
+                       flags = 2)
+
+
+    img3 = drawMatches(img1,kp1,img2,kp2,good)
+    return img3, img2, actual_list_of_points
