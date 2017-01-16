@@ -3,10 +3,10 @@ from pyimagesearch.helpers import sliding_window
 import time
 import cv2
 
-def sliding_window(image):
+def my_sliding_window(image,single_square_side):
     # load the image and define the window width and height
     # TEMPORARY image = cv2.imread('screenshot.png')
-    (winW, winH) = (64, 64)
+    (winW, winH) = (single_square_side, single_square_side*2)
 
 
 

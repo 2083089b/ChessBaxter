@@ -2,6 +2,7 @@ import numpy as np
 import cv2
 import math
 from chessboard_detector import chessboard_homography
+from sliding_windows import my_sliding_window
 
 img_with_mathes, img_with_homography, points = chessboard_homography()
 
@@ -36,7 +37,7 @@ area = (a+b)/2*h
 print "area: " + str(area)
 
 single_square = area/64
-single_square_side = math.sqrt(single_square)
+single_square_side = int(math.sqrt(single_square))
 print "one square has an average area equals to: " + str(single_square) + " and each side is: " + str(single_square_side)
 cv2.line(img_with_homography,corner1,(int(corner1[0]),int(corner1[1]-single_square_side)),0,3)
 
@@ -47,9 +48,12 @@ c = 0
    # cv2.line(img2,pt1,pt2,0,3)
     #c += 2
 
+
+cropped_image = img_with_homography[corner4[1]-single_square_side:corner1[1]+single_square_side,corner4[0]-single_square_side:corner1[0]+single_square_side]
+my_sliding_window(cropped_image, single_square_side)
+
+#cv2.namedWindow('Chessboard Detection',cv2.WINDOW_NORMAL)
 #cv2.imshow('Chessboard Detection',img_with_homography)
-cv2.namedWindow('Chessboard Detection',cv2.WINDOW_NORMAL)
-cv2.imshow('Chessboard Detection',img_with_homography)
-cv2.resizeWindow('Chessboard Detection', 1568,820)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+#cv2.resizeWindow('Chessboard Detection', 1568,820)
+#cv2.waitKey(0)
+#cv2.destroyAllWindows()
