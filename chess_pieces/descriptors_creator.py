@@ -9,7 +9,7 @@ from sklearn.externals import joblib
 orb = cv2.ORB_create(edgeThreshold=4)
 
 
-folders_names = ['white_bishop','white_king','white_knight','white_pawn','white_queen','white_rock','white_square'] # Missing the square
+folders_names = ['white_bishop','white_king','white_knight','white_pawn','white_queen','white_rock'] # Missing the square
 
 # Go through each folder containing pictures of the chess pieces
 for folder_name in folders_names:
