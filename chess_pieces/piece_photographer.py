@@ -23,7 +23,7 @@ bridge = CvBridge()
 c = 0
 
 def image_callback(msg):
-    
+
     print("\nReceived an image!")
     try:
         # Convert your ROS Image message to OpenCV2
@@ -32,12 +32,12 @@ def image_callback(msg):
     except CvBridgeError, e:
         print(e)
     else:
-        # Save your OpenCV2 image as a jpeg 
+        # Save your OpenCV2 image as a jpeg
         global c
         if(c == 100):
             c = 0
         c  += 1
-        cv2.imwrite('white_king/camera_image' + str(c) + '.jpeg', cv2_img)
+        cv2.imwrite('others2/camera_image' + str(c) + '.jpeg', cv2_img)
         time.sleep(1)
 
 def main():

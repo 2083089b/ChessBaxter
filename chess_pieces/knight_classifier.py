@@ -6,11 +6,11 @@ import pickle
 
 
 # Initialize an SVC classifier
-clf = svm.SVC()
+clf = svm.SVC(probability=True)
 
-folders_names = ['white_pawn','white_king','white_bishop','white_pawn','white_queen','white_rock'] # Missing the square
+folders_names = ['pawn','king','bishop','queen','rock','square']
 
-X = joblib.load('descriptors/white_knight/white_knight.pkl')
+X = joblib.load('descriptors/knight/knight.pkl')
 num_of_positives = len(X)
 
 for folder_name in folders_names:
@@ -24,4 +24,4 @@ y = np.ravel(np.concatenate((y,np.zeros((num_of_negatives, 1)))))
 
 print clf.fit(X,y)
 
-joblib.dump(clf,'classifiers/white_knight_classifier.pkl')
+joblib.dump(clf,'classifiers/knight_classifier.pkl')

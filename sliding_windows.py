@@ -3,14 +3,19 @@ from pyimagesearch.helpers import sliding_window
 import time
 import cv2
 from chess_pieces.predictor import predict
+from PIL import Image
+
 
 def my_sliding_window(image,single_square_side):
+    cv2.imshow("Window", image)
+    cv2.waitKey(1)
     # Define the window width and height
     (winW, winH) = (single_square_side, single_square_side*2)
 
     dictionary = {"king":0,"queen":0,"bishop":0,"knight":0,"rock":0,"pawn":0,}
     pieces = []     # TO BE CHANGED
 
+    counter = 0
     for (x, y, window) in sliding_window(image, stepSize=single_square_side/2, windowSize=(winW, winH)):
         # if the window does not meet our desired window size, ignore it
         if window.shape[0] != winH or window.shape[1] != winW:
@@ -21,13 +26,15 @@ def my_sliding_window(image,single_square_side):
 	    # WINDOW
         piece_name, confidence = predict(window)
         pieces.append(piece_name)
-
+        print type(window)
+        im = Image.fromarray(window)
+        im.save("window_"+str(counter)+".jpeg")
         # since we do not have a classifier, we'll just draw the window
         clone = image.copy()
         cv2.rectangle(clone, (x, y), (x + winW, y + winH), (0, 255, 0), 2)
         cv2.imshow("Window", window)
         cv2.waitKey(1)
         time.sleep(0.025)
-
+        counter += 1
 
     return pieces

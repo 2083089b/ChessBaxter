@@ -9,13 +9,14 @@ from sklearn.externals import joblib
 orb = cv2.ORB_create(edgeThreshold=4)
 
 
-folders_names = ['white_bishop','white_king','white_knight','white_pawn','white_queen','white_rock'] # Missing the square
+folders_names = ['bishop','king','knight','pawn','queen','rock','square']
 
+print "\nNumber of descriptors:\n"
 # Go through each folder containing pictures of the chess pieces
 for folder_name in folders_names:
     # Read all images in the current folder
     images = []
-    for filename in glob.glob(folder_name+'/*.png'):
+    for filename in glob.glob('cropped_pictures/'+folder_name+'/*.png'):
         images.append(cv2.imread(filename,0))
         #images.append(np.array(Image.open(filename)))
 
@@ -26,8 +27,8 @@ for folder_name in folders_names:
         kp1, des1 = orb.detectAndCompute(image,None)
 
         for c, des in enumerate(des1):
-            if c < 50:
-                descriptors.append(des)
-    if folder_name == 'white_square':
-        print len(descriptors)
+            # if c < 50:
+            descriptors.append(des)
+    print folder_name + ": " + str(len(descriptors))
+
     joblib.dump(descriptors,'descriptors/'+folder_name+'/'+folder_name+'.pkl')
