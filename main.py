@@ -46,8 +46,8 @@ cropped_image = img_with_homography[int(corner4[1]-single_square_side):int(corne
 if(np.shape(cropped_image)[0] == 0 or np.shape(cropped_image)[1] == 0):
     cropped_image = img_with_homography[int(corner2[1]-single_square_side):int(corner3[1]+single_square_side),int(corner2[0]-single_square_side):int(corner3[0]+single_square_side)]
 
-#cv2.imshow("Window", cropped_image)
-# cv2.waitKey(0)
+cv2.imshow("Window", cropped_image)
+cv2.waitKey(0)
 pieces = my_sliding_window(cropped_image, single_square_side)
 
 print pieces

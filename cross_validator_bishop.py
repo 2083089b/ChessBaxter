@@ -6,10 +6,10 @@ from sklearn.externals import joblib
 clf = svm.SVC(kernel='linear', C=1)
 
 # Read all the positives
-X = joblib.load('chess_pieces/descriptors/rock/rock.pkl')
+X = joblib.load('chess_pieces/descriptors/bishop/bishop.pkl')
 num_of_positives = len(X)
 
-folders_names = ['king','bishop','queen','pawn','knight','square']
+folders_names = ['king','rock','queen','pawn','knight','square']
 
 # Read all the negatives
 for folder_name in folders_names:

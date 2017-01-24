@@ -5,18 +5,15 @@ from sklearn.externals import joblib
 
 clf = svm.SVC(kernel='linear', C=1)
 
-X = joblib.load('chess_pieces/descriptors/white_knight/white_knight.pkl')
+# Read all the positives
+X = joblib.load('chess_pieces/descriptors/pawn/pawn.pkl')
 num_of_positives = len(X)
 
-folders_names = ['white_pawn','white_king','white_bishop','white_queen','white_rock', 'white_knight']
+folders_names = ['king','rock','queen','square','knight','bishop']
 
-boo = True
+# Read all the negatives
 for folder_name in folders_names:
     X = np.concatenate((X,joblib.load('chess_pieces/descriptors/'+folder_name+'/'+folder_name+'.pkl')))
-    if boo:
-        num_of_positives = len(X)
-        boo = False
-
 
 num_of_negatives = len(X) - num_of_positives
 
@@ -25,9 +22,6 @@ y = np.ones((num_of_positives, 1))
 y = np.ravel(np.concatenate((y,np.zeros((num_of_negatives, 1)))))
 print y
 
-# y = np.ones((num_of_positives, 1))
-# y = np.ravel(np.concatenate((y,np.zeros((num_of_negatives, 1)))))
-
-scores = cross_val_score(clf, X, y, cv=5)
+scores = cross_val_score(clf, X, y, cv=2, n_jobs=3, verbose=10)
 
 print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))

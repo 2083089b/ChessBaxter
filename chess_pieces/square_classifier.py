@@ -6,7 +6,7 @@ import pickle
 
 
 # Initialize an SVC classifier
-clf = svm.SVC(probability=True)
+clf = svm.SVC(probability=True,verbose=True)
 
 folders_names = ['bishop','king','knight','pawn','queen','rock']
 

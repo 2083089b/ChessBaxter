@@ -114,6 +114,7 @@ def chessboard_homography():
     if(len(list_of_pictures)!=0):
         # Take the last picture taken and its number to process it
         counter = list_of_pictures[-1][-6]
+        print counter
         img2 = cv2.imread('/home/lorenzo/catkin_ws/src/chessboard_detection/src/kinect_images/camera_image'+str(counter)+'.jpeg',0)
 
     # Else loop until a picture appears in that folder
