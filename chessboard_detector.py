@@ -116,6 +116,8 @@ def chessboard_homography():
         counter = list_of_pictures[-1][-6]
         print counter
         img2 = cv2.imread('/home/lorenzo/catkin_ws/src/chessboard_detection/src/kinect_images/camera_image'+str(counter)+'.jpeg',0)
+        cv2.imshow("Window", img2)
+        cv2.waitKey(0)
 
     # Else loop until a picture appears in that folder
     else:
@@ -171,7 +173,7 @@ def chessboard_homography():
         h,w = img1.shape
         pts = np.float32([ [0,0],[0,h-1],[w-1,h-1],[w-1,0] ]).reshape(-1,1,2)
         dst = cv2.perspectiveTransform(pts,M)
-        cv2.polylines(img2,[np.int32(dst)],True,255,3)
+        #cv2.polylines(img2,[np.int32(dst)],True,255,3)
         list_of_points = chessboard_segmentation(img1)
         pts2 = np.float32(list_of_points).reshape(-1,1,2)
         dst2 = cv2.perspectiveTransform(pts2,M)

@@ -11,18 +11,18 @@ def predict(img1):
     #img_name = 'rock/rock1.png'
     #img1 = cv2.imread(img_name,0)
 
-    dictionary = {0:"king", 1:"queen", 2:"bishop", 3:"knight", 4:"rock", 5:"square", 6:"pawn"}
+    dictionary = {0:"king", 1:"queen", 2:"bishop", 3:"knight", 4:"pawn", 5:"rock", 6:"square"}
     orb = cv2.ORB_create(edgeThreshold=4)
 
     kp1, des1 = orb.detectAndCompute(img1, None)
-    for kp in kp1:
-        cv2.circle(img1, (int(kp.pt[0]),int(kp.pt[1])), 1, (255, 0, 0), 1)
+    # for kp in kp1:
+        # cv2.circle(img1, (int(kp.pt[0]),int(kp.pt[1])), 1, (255, 0, 0), 1)
 
     # cv2.imshow("img1", img1)
     # cv2.waitKey(0)
 
     # If enough descriptors were found, run classifiers and choose the most confident
-    if np.size(des1) != 0:
+    if np.size(des1) > 50:
         c = 0
 
 
@@ -32,9 +32,9 @@ def predict(img1):
         classifiers.append(joblib.load('chess_pieces/classifiers/queen_classifier.pkl'))
         classifiers.append(joblib.load('chess_pieces/classifiers/bishop_classifier.pkl'))
         classifiers.append(joblib.load('chess_pieces/classifiers/knight_classifier.pkl'))
-        classifiers.append(joblib.load('chess_pieces/classifiers/rock_classifier.pkl'))
-        classifiers.append(joblib.load('chess_pieces/classifiers/square_classifier.pkl'))
         classifiers.append(joblib.load('chess_pieces/classifiers/pawn_classifier.pkl'))
+        classifiers.append(joblib.load('chess_pieces/classifiers/rock_classifier.pkl'))
+        #classifiers.append(joblib.load('chess_pieces/classifiers/square_classifier.pkl'))
 
         max = float(0.0)
         piece_counter = -1
