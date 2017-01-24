@@ -20,6 +20,8 @@ def predict(img1):
 
     # cv2.imshow("img1", img1)
     # cv2.waitKey(0)
+
+    # If enough descriptors were found, run classifiers and choose the most confident
     if np.size(des1) != 0:
         c = 0
 
@@ -40,19 +42,14 @@ def predict(img1):
         for classifier in classifiers:
             piece_counter += 1
             confidence = classifier.predict_proba(des1)
-            print "Result " + str(piece_counter) + ": " + str(confidence[0])
 
-            a = float(confidence[0][0])
-            print "a " + str(a)
-            print "max " + str(max)
-            if a > max:
-                max = a
+            float_confidence = float(confidence[0][0])
+            if float_confidence> max:
+                max = float_confidence
                 piece = piece_counter
 
         # If a piece was detected, return the name of that piece and the classifier's confidence
         if max > 0.75:
-            print piece
-            print "FINAL RESULT: " + str(dictionary[piece])
             return dictionary[piece], max
 
     return "None", 0

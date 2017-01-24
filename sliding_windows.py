@@ -26,7 +26,6 @@ def my_sliding_window(image,single_square_side):
 	    # WINDOW
         piece_name, confidence = predict(window)
         pieces.append(piece_name)
-        print type(window)
         im = Image.fromarray(window)
         im.save("window_"+str(counter)+".jpeg")
         # since we do not have a classifier, we'll just draw the window

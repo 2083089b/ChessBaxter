@@ -22,6 +22,6 @@ y = np.ones((num_of_positives, 1))
 y = np.ravel(np.concatenate((y,np.zeros((num_of_negatives, 1)))))
 print y
 
-scores = cross_val_score(clf, X, y, cv=5, verbose = 10)
+scores = cross_val_score(clf, X, y, cv=5, n_jobs = 4, verbose = 10)
 
 print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
