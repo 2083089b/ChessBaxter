@@ -29,27 +29,28 @@ clf = svm.SVC(probability=True,verbose=True)
 
 siftdesc = cv2.xfeatures2d.SIFT_create()
 
-X = joblib.load('descriptors/SIFT/dense/pawn/pawn.pkl')
+X = joblib.load('descriptors/SIFT/dense/king/king.pkl')
 num_of_positives = len(X)
 print num_of_positives
 
-X = np.concatenate((X,joblib.load('descriptors/SIFT/dense/king/king.pkl')))
+X = np.concatenate((X,joblib.load('descriptors/SIFT/dense/pawn/pawn.pkl')))
 num_of_negatives = len(X) - num_of_positives
 
-y = np.ones((num_of_positives, 1))
-y = np.ravel(np.concatenate((y,np.zeros((num_of_negatives, 1)))))
+y = np.zeros((num_of_positives, 1))
+y = np.ravel(np.concatenate((y,np.ones((num_of_negatives, 1)))))
 
 print clf.fit(X,y)
 
-img = cv2.imread("white_pawn27.png")
+joblib.dump(clf,'classifiers/SIFT/dense/densekingVpawn_classifier.pkl')
+
+### SECOND PART ###
+
+siftdesc = cv2.xfeatures2d.SIFT_create()
+
+img = cv2.imread("white_king8.png")
 
 kp = dense_keypoints(img)
-# img = cv2.drawKeypoints(img,kp,img,flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 kp, des1 = siftdesc.compute(img, kp)
-print len(des1)
-print "DESCRIPTORS:"
-print des1
-np.savetxt('test2.txt', des1, delimiter=',')
 
 
 cv2.imshow('img', img)
@@ -62,12 +63,10 @@ print clf.predict_proba(des1)[0][0]
 total = 0
 counter = 0
 for entry in clf.predict_proba(des1):
-	if prediction[counter] == 1:
-		total = total + entry[0]
-	else:
+	if prediction[counter] == 0:
 		total = total + entry[1]
+	else:
+		total = total + entry[0]
 	counter += 1
 
 print "Mean: " + str(total/counter)
-
-joblib.dump(clf,'classifiers/SIFT/dense/densepawnVking_classifier.pkl')
