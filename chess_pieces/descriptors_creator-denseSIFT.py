@@ -30,23 +30,35 @@ folders_names = ['bishop','king','knight','pawn','queen','rock','square']
 print "\nNumber of descriptors:\n"
 # Go through each folder containing pictures of the chess pieces
 for folder_name in folders_names:
-    # Read all images in the current folder
-    images = []
-    for filename in glob.glob('cropped_pictures/'+folder_name+'/*.png'):
-        images.append(cv2.imread(filename,0))
+	# Read all images in the current folder
+	images = []
+	for filename in glob.glob('cropped_pictures/'+folder_name+'/*.png'):
+		images.append(cv2.imread(filename))
 
-    descriptors = []
+	descriptors = []
 
-    for image in images:
-        # Detect and compute dense key points and descriptors for the image
-        kp = dense_keypoints(image)
-        print "Number of keypoints: " + str(len(kp))
-        image = cv2.drawKeypoints(image,kp,image,flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
-        kp1, des1 = siftdesc.compute(image, kp)
+	boo = False
+	for image in images:
+		# Detect and compute dense key points and descriptors for the image
+		kp = dense_keypoints(image)
+		print "Number of keypoints: " + str(len(kp))
+		# image = cv2.drawKeypoints(image,kp,image,flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+		kp1, des1 = siftdesc.compute(image, kp)
+		# cv2.imshow('dense features', image)
+		# cv2.waitKey(0)
+		if len(des1) == 60:
+			if boo == False:
+				boo = True
+			else:
+				print des1
+				np.savetxt('test.txt', des1, delimiter=',')
+				kp2 = dense_keypoints(image)
+				kp3, des2 = siftdesc.compute(image, kp2)
+				np.savetxt('test0.txt', des2, delimiter=',')
+		for c, des in enumerate(des1):
+			descriptors.append(des)
 
-        for c, des in enumerate(des1):
-            descriptors.append(des)
 
-    print folder_name + "'s total number of descriptors': " + str(len(descriptors))
+	print folder_name + "'s total number of descriptors': " + str(len(descriptors))
 
-    joblib.dump(descriptors,'descriptors/SIFT/dense/'+folder_name+'/'+folder_name+'.pkl')
+	joblib.dump(descriptors,'descriptors/SIFT/dense/'+folder_name+'/'+folder_name+'.pkl')
