@@ -10,11 +10,11 @@ clf = svm.SVC(probability=True,verbose=True)
 
 folders_names = ['pawn','king','bishop','queen','rock','square']
 
-X = joblib.load('descriptors/knight/knight.pkl')
+X = joblib.load('descriptors/SIFT/knight/knight.pkl')
 num_of_positives = len(X)
 
 for folder_name in folders_names:
-    X = np.concatenate((X,joblib.load('descriptors/'+folder_name+'/'+folder_name+'.pkl')))
+    X = np.concatenate((X,joblib.load('descriptors/SIFT/'+folder_name+'/'+folder_name+'.pkl')))
 
 
 num_of_negatives = len(X) - num_of_positives
@@ -24,4 +24,4 @@ y = np.ravel(np.concatenate((y,np.zeros((num_of_negatives, 1)))))
 
 print clf.fit(X,y)
 
-joblib.dump(clf,'classifiers/knight_classifier.pkl')
+joblib.dump(clf,'classifiers/SIFT/knight_classifier.pkl')
