@@ -59,6 +59,6 @@ print "Out: " + str(out)
 # 		total = total + entry[1]
 # 	counter += 1
 #
-# print "Mean: " + str(total/counter)
+# print "Mean2: " + str(total/counter)
 
 # joblib.dump(clf,'classifiers/SIFT/dense/densepawnVking_classifier.pkl')

@@ -26,19 +26,26 @@ def dense_keypoints(img, scaleLevels=1, scaleFactor=1.2, varyStepWithScale=False
 
 def sliding_window(image, stepSize, windowSize):
 	# counter = 0
+	cv2.imshow('a',image)
+	cv2.waitKey(0)
+	# windowSize = (windowSize[0]+1,windowSize[1]+1)
+	print "stepSize: " + str(stepSize)
+	print "windowSize: " + str(windowSize)
 	for y in range(0, image.shape[0], stepSize):
 		for x in range(0, image.shape[1], stepSize):
 			sliding_window = image[y:y + windowSize[1], x:x + windowSize[0]]
 
 			# Avoid black pixels, i.e. black background of the cropped piece image
 			if sum(sliding_window.ravel()) != 0:
+				# cv2.imshow('img',image[y:y + windowSize[1], x:x + windowSize[0]])
+				# cv2.waitKey(0)
 				yield (x, y, image[y:y + windowSize[1], x:x + windowSize[0]])
 				# counter += 1
 	# print "counter: " + str(counter)
 
 def extract_HOG(img, class_id):
 	gray = img #cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-	winSize = 11
+	winSize = 22
 
 	feat = []
 	desc = []
