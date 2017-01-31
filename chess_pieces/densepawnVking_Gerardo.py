@@ -34,8 +34,21 @@ des1 = np.float32(des1)
 prediction = clf.predict(des1)
 print prediction
 pred_prob = clf.predict_proba(des1)
+
+values = []
+counter = 0
+
+for entry in pred_prob:
+	if float(prediction[counter]) == 0.0:
+		values.append(entry[0])
+	counter += 1
+
+
+# Calculate the mean
+print "Mean: " + str(sum(values)/len(values))
+
 out = pred_prob.mean(axis=0)
-print out
+print "Out: " + str(out)
 
 # total = 0
 # counter = 0
