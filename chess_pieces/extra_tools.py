@@ -26,11 +26,11 @@ def dense_keypoints(img, scaleLevels=1, scaleFactor=1.2, varyStepWithScale=False
 
 def sliding_window(image, stepSize, windowSize):
 	# counter = 0
-	cv2.imshow('a',image)
-	cv2.waitKey(0)
+	# cv2.imshow('a',image)
+	# cv2.waitKey(0)
 	# windowSize = (windowSize[0]+1,windowSize[1]+1)
-	print "stepSize: " + str(stepSize)
-	print "windowSize: " + str(windowSize)
+	# print "stepSize: " + str(stepSize)
+	# print "windowSize: " + str(windowSize)
 	for y in range(0, image.shape[0], stepSize):
 		for x in range(0, image.shape[1], stepSize):
 			sliding_window = image[y:y + windowSize[1], x:x + windowSize[0]]
