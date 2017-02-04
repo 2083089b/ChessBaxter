@@ -25,40 +25,46 @@ def dense_keypoints(img, scaleLevels=1, scaleFactor=1.2, varyStepWithScale=False
 	return kp
 
 def sliding_window(image, stepSize, windowSize):
-	# counter = 0
-	# cv2.imshow('a',image)
-	# cv2.waitKey(0)
-	# windowSize = (windowSize[0]+1,windowSize[1]+1)
-	# print "stepSize: " + str(stepSize)
-	# print "windowSize: " + str(windowSize)
+
 	for y in range(0, image.shape[0], stepSize):
 		for x in range(0, image.shape[1], stepSize):
+
 			sliding_window = image[y:y + windowSize[1], x:x + windowSize[0]]
 
+			# Count how many black pixels in the picture
+			black_pixels_counter = 0
+			for pixel in sliding_window.ravel():
+				if pixel == 0:
+					black_pixels_counter += 1
+
 			# Avoid black pixels, i.e. black background of the cropped piece image
-			if sum(sliding_window.ravel()) != 0:
+			sliding_window_area = sliding_window.shape[1]*sliding_window.shape[0]
+
+			if black_pixels_counter < stepSize*sliding_window.shape[0]:
 				# cv2.imshow('img',image[y:y + windowSize[1], x:x + windowSize[0]])
 				# cv2.waitKey(0)
 				yield (x, y, image[y:y + windowSize[1], x:x + windowSize[0]])
-				# counter += 1
-	# print "counter: " + str(counter)
+
+
 
 def extract_HOG(img, class_id):
 	gray = img #cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-	winSize = 22
+	winSize = 30
 
 	feat = []
 	desc = []
 	nlevel = 1
+	for i in range(0,5):
+		gray = cv2.pyrUp(gray)
 	while gray.shape[0] >= winSize*2.5 or gray.shape[1] >= winSize*2.5:
-
-		for (x, y, window) in sliding_window(gray, stepSize=5, windowSize=(winSize, winSize)):
-			if window.shape[0] != winSize or window.shape[1] != winSize:
-				continue
-
-			feat.append([x,y, nlevel, class_id])
-			desc.append(hog(window).tolist())
-
+	#
+	# 	for (x, y, window) in sliding_window(gray, stepSize=5, windowSize=(winSize, winSize)):
+	# 		if window.shape[0] != winSize or window.shape[1] != winSize:
+	# 			continue
+	#
+	# 		feat.append([x,y, nlevel, class_id])
+	# 		desc.append(hog(window).tolist())
+		desc.append(hog(gray).tolist())
 		gray = cv2.pyrDown(gray)
 		nlevel += 1
 

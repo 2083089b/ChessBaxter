@@ -5,7 +5,8 @@ import glob
 from sklearn.externals import joblib
 from extra_tools import extract_HOG
 
-folders_names = ['bishop','king','knight','pawn','queen','rock','square']
+# 'bishop','king','knight', --- ,'queen','rock','square'
+folders_names = ['pawn','king']
 
 words_per_class = 200
 
@@ -15,8 +16,15 @@ for folder_name in folders_names:
 	# Read all images in the current folder
 	print folder_name
 	images = []
+
+	c = 0
 	for filename in glob.glob('cropped_pictures/'+folder_name+'/*.png'):
-		images.append(cv2.imread(filename,0))
+		image = cv2.imread(filename)
+		gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+		images.append(gray)
+		if "pawn1.png" in filename:
+			counter = c
+		c = c+1
 
 	descriptors = []
 
@@ -26,23 +34,24 @@ for folder_name in folders_names:
 
 		for c, des in enumerate(des1):
 			descriptors.append(des)
-	# print folder_name + ": " + str(len(descriptors))
 
+	# print folder_name + ": " + str(len(descriptors))
+	# print descriptors
 	descs = np.float32(descriptors)
 	joblib.dump(descs,'descriptors/HOG/'+folder_name+'/'+folder_name+'.pkl')
 
-	print("length of descriptors: " + str(len(descs[0])))
-	print("number of descriptors extracted: " + str(len(descs)))
-
-	criteria = (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
-	try:
-		ret, label, centers = cv2.kmeans(np.array(descs), words_per_class, criteria, 10,
-										 cv2.KMEANS_RANDOM_CENTERS)
-	except:
-		ret, label, centers = cv2.kmeans(np.array(descs), words_per_class, None, criteria, 10,
-										 cv2.KMEANS_RANDOM_CENTERS)
-
-	print("From " + str(len(descs)) + " descriptors to " + str(len(centers)) + " descriptors \n")
-	descs = np.float32(centers)
+	# print("length of descriptors: " + str(len(descs[0])))
+	# print("number of descriptors extracted: " + str(len(descs)))
+	#
+	# criteria = (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
+	# try:
+	# 	ret, label, centers = cv2.kmeans(np.array(descs), words_per_class, criteria, 10,
+	# 									 cv2.KMEANS_RANDOM_CENTERS)
+	# except:
+	# 	ret, label, centers = cv2.kmeans(np.array(descs), words_per_class, None, criteria, 10,
+	# 									 cv2.KMEANS_RANDOM_CENTERS)
+	#
+	# print("From " + str(len(descs)) + " descriptors to " + str(len(centers)) + " descriptors \n")
+	# descs = np.float32(centers)
 
 	np.savetxt('descriptors/HOG/'+folder_name+'/'+folder_name+'.vocab', descs, delimiter=',')

@@ -8,21 +8,19 @@ from sklearn import cross_validation
 
 from extra_tools import extract_HOG, chess_train
 
-clf = chess_train('descriptors/HOG', ['pawn', 'king'], train_mod="LR_l2")
+clf = chess_train('descriptors/HOG', ['pawn', 'king'], train_mod="SVC_linear")
 print "Training done!"
 
 # img = cv2.imread("/home/gerardo/Documents/ChessBaxter/chess_pieces/white_king1.png")
 # img = cv2.imread("/home/gerardo/Documents/ChessBaxter/chess_pieces/window_132.jpeg")
-img = cv2.imread("king.png")
+img = cv2.imread("me.png")
 gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 
 # img = cv2.drawKeypoints(img,kp,img,flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 # cv2.imwrite('sift_keypoints.jpg',img)
 print "Compute descriptors"
 kp, des1 = extract_HOG(gray, 0)
-print "DESCRIPTORS:"
-print len(des1)
-# print des1
+
 np.savetxt('test2.txt', des1, delimiter=',')
 
 des1 = np.float32(des1)
@@ -34,6 +32,7 @@ des1 = np.float32(des1)
 prediction = clf.predict(des1)
 print prediction
 pred_prob = clf.predict_proba(des1)
+print pred_prob
 
 values = []
 counter = 0
@@ -45,7 +44,7 @@ for entry in pred_prob:
 
 
 # Calculate the mean
-print "Mean: " + str(sum(values)/len(values))
+# print "Mean: " + str(sum(values)/len(values))
 
 out = pred_prob.mean(axis=0)
 print "Out: " + str(out)
