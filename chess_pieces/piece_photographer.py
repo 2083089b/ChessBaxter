@@ -24,33 +24,33 @@ c = 0
 
 def image_callback(msg):
 
-    print("\nReceived an image!")
-    try:
-        # Convert your ROS Image message to OpenCV2
-        cv2_img = bridge.imgmsg_to_cv2(msg, "bgr8")
-        # cv2.imshow('cv_img', cv2_img)			THE NEW OPENED WINDOW DOESN'T WORK
-    except CvBridgeError, e:
-        print(e)
-    else:
-        # Save your OpenCV2 image as a jpeg
-        global c
-        if(c == 100):
-            c = 0
-        c  += 1
-        cv2.imwrite('others2/camera_image' + str(c) + '.jpeg', cv2_img)
-        time.sleep(1)
+	print("\nReceived an image!")
+	try:
+		# Convert your ROS Image message to OpenCV2
+		cv2_img = bridge.imgmsg_to_cv2(msg, "bgr8")
+		# cv2.imshow('cv_img', cv2_img)			THE NEW OPENED WINDOW DOESN'T WORK
+	except CvBridgeError, e:
+		print(e)
+	else:
+		# Save your OpenCV2 image as a jpeg
+		global c
+		if(c == 100):
+			c = 0
+		c  += 1
+		cv2.imwrite('others3/camera_image' + str(c) + '.jpeg', cv2_img)
+		time.sleep(1)
 
 def main():
-    rospy.init_node('image_listener')
-    # Define your image topic
-    image_topic = "/kinect2/hd/image_color"
-    # Set up your publisher - DOES NOT DO ANYTHING FOR NOW AS I NEED TO RUN roslaunch kinect2_bridge kinect2_bridge.launch
-    pub = rospy.Publisher(image_topic, Image, queue_size=0)
-    # Set up your subscriber and define its callback
+	rospy.init_node('image_listener')
+	# Define your image topic
+	image_topic = "/kinect2/hd/image_color"
+	# Set up your publisher - DOES NOT DO ANYTHING FOR NOW AS I NEED TO RUN roslaunch kinect2_bridge kinect2_bridge.launch
+	pub = rospy.Publisher(image_topic, Image, queue_size=0)
+	# Set up your subscriber and define its callback
 
-    rospy.Subscriber(image_topic, Image, image_callback)
-    # Spin until ctrl + c
-    rospy.spin()
+	rospy.Subscriber(image_topic, Image, image_callback)
+	# Spin until ctrl + c
+	rospy.spin()
 
 if __name__ == '__main__':
-    main()
+	main()
