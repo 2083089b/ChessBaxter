@@ -17,14 +17,11 @@ for folder_name in folders_names:
 	print folder_name
 	images = []
 
-	c = 0
+
 	for filename in glob.glob('cropped_pictures/'+folder_name+'/*.png'):
 		image = cv2.imread(filename)
 		gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
 		images.append(gray)
-		if "pawn1.png" in filename:
-			counter = c
-		c = c+1
 
 	descriptors = []
 

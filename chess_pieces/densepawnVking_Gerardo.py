@@ -8,12 +8,12 @@ from sklearn import cross_validation
 
 from extra_tools import extract_HOG, chess_train
 
-clf = chess_train('descriptors/HOG', ['pawn', 'king'], train_mod="SVC_linear")
+clf = chess_train('descriptors/HOG', ['pawn', 'king','queen','knight','bishop','rock'], train_mod="SVC_linear")
 print "Training done!"
 
 # img = cv2.imread("/home/gerardo/Documents/ChessBaxter/chess_pieces/white_king1.png")
 # img = cv2.imread("/home/gerardo/Documents/ChessBaxter/chess_pieces/window_132.jpeg")
-img = cv2.imread("another_pawn.png")
+img = cv2.imread("queen.png")
 gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 
 # img = cv2.drawKeypoints(img,kp,img,flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
@@ -26,8 +26,8 @@ np.savetxt('test2.txt', des1, delimiter=',')
 des1 = np.float32(des1)
 
 
-cv2.imshow('img', img)
-cv2.waitKey(0)
+# cv2.imshow('img', img)
+# cv2.waitKey(0)
 
 prediction = clf.predict(des1)
 print prediction

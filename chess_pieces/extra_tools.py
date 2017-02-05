@@ -6,6 +6,7 @@ from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn import cross_validation
+import random
 
 def dense_keypoints(img, scaleLevels=1, scaleFactor=1.2, varyStepWithScale=False):
 	curScale = 1.0
@@ -112,7 +113,14 @@ def chess_train(out_dir_desc, train_classes, train_mod="LR_l1"):
 		print str(i) + class_name
 		filename = os.path.join(out_dir_desc, class_name, class_name + ".vocab")
 		desc = np.float32(np.array(np.loadtxt(filename, delimiter=',')))
-		class_no = np.ones((len(desc), 1)) * i
+
+		if i == 0:
+			class_no = np.zeros((len(desc), 1))
+			number_of_positive_samples = len(class_no)
+		else:
+			desc = random.sample(desc,number_of_positive_samples/6)
+			class_no = np.ones((len(desc), 1))
+
 		all_desc = _loop_list(desc, all_desc)
 		for d in class_no:
 			all_class_no.append(d[0])
