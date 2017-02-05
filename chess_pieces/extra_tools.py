@@ -118,7 +118,7 @@ def chess_train(out_dir_desc, train_classes, train_mod="LR_l1"):
 			class_no = np.zeros((len(desc), 1))
 			number_of_positive_samples = len(class_no)
 		else:
-			desc = random.sample(desc,number_of_positive_samples/6)
+			desc = random.sample(desc,number_of_positive_samples/2)
 			class_no = np.ones((len(desc), 1))
 
 		all_desc = _loop_list(desc, all_desc)

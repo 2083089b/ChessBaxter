@@ -13,7 +13,7 @@ print "Training done!"
 
 # img = cv2.imread("/home/gerardo/Documents/ChessBaxter/chess_pieces/white_king1.png")
 # img = cv2.imread("/home/gerardo/Documents/ChessBaxter/chess_pieces/window_132.jpeg")
-img = cv2.imread("queen.png")
+img = cv2.imread("pawn1.png")
 gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 
 # img = cv2.drawKeypoints(img,kp,img,flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
