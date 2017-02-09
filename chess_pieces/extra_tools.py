@@ -104,13 +104,12 @@ def chess_train(out_dir_desc, train_classes, train_mod="LR_l1"):
 
 	'''
 
-	print("**************** Training classification model")
-	print out_dir_desc
-	print train_classes
+	# print("**************** Training classification model")
+	# print out_dir_desc
+	# print train_classes
 	all_desc = []
 	all_class_no = []
 	for i, class_name in enumerate(train_classes):
-		print str(i) + class_name
 		filename = os.path.join(out_dir_desc, class_name, class_name + ".vocab")
 		desc = np.float32(np.array(np.loadtxt(filename, delimiter=',')))
 
@@ -139,15 +138,15 @@ def chess_train(out_dir_desc, train_classes, train_mod="LR_l1"):
 		raise("Unknown classification model")
 
 	scores = cross_validation.cross_val_score(classification_model, all_desc, all_class_no, cv = 10)
-	print("Cross-validation results")
-	print(scores)
-	print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
+	# print("Cross-validation results")
+	# print(scores)
+	# print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
 
 	classification_model.fit(all_desc, all_class_no)
 	ans = classification_model.score(all_desc, all_class_no)
-	print(ans)
+	# print(ans)
 
-	print("**************** Done!")
+	# print("**************** Done!")
 
 	return classification_model
 
