@@ -3,6 +3,8 @@ import cv2
 import math
 from chessboard_detector import chessboard_homography
 from sliding_windows import my_sliding_window
+import chess
+import chess.uci
 
 img_with_matches, img_with_homography, points = chessboard_homography()
 
@@ -59,3 +61,7 @@ print pieces
 #cv2.resizeWindow('Chessboard Detection', 1568,820)
 #cv2.waitKey(0)
 #cv2.destroyAllWindows()
+
+
+# INTO THE CHESS GAME
+board = chess.Board(current_state_of_the_board)
