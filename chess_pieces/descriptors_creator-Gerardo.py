@@ -5,7 +5,7 @@ import glob
 from sklearn.externals import joblib
 from extra_tools import extract_HOG
 
-folders_names = ['bishop', 'king', 'knight', 'pawn', 'queen', 'rock', 'square']
+folders_names = ['bishop', 'king', 'knight', 'pawn', 'queen', 'rook', 'square']
 
 words_per_class = 150
 

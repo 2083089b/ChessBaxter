@@ -9,7 +9,7 @@ from sklearn.externals import joblib
 siftdesc = cv2.xfeatures2d.SIFT_create()
 
 
-folders_names = ['bishop','king','knight','pawn','queen','rock','square']
+folders_names = ['bishop','king','knight','pawn','queen','rook','square']
 
 print "\nNumber of descriptors:\n"
 # Go through each folder containing pictures of the chess pieces

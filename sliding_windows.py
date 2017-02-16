@@ -10,7 +10,7 @@ def my_sliding_window(image,single_square_side,corner1,corner2,corner3,corner4):
 	# Define the window width and height
 	(winW, winH) = (single_square_side, single_square_side*3/2)
 
-	#dictionary = {"king":0,"queen":0,"bishop":0,"knight":0,"rock":0,"pawn":0}
+	#dictionary = {"king":0,"queen":0,"bishop":0,"knight":0,"rook":0,"pawn":0}
 	pieces = []
 
 	counter = 0

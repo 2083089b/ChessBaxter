@@ -8,7 +8,7 @@ import pickle
 # Initialize an SVC classifier
 clf = svm.SVC(probability=True,verbose=True)
 
-folders_names = ['bishop','king','knight','pawn','queen','rock']
+folders_names = ['bishop','king','knight','pawn','queen','rook']
 
 X = joblib.load('descriptors/SIFT/square/square.pkl')
 num_of_positives = len(X)

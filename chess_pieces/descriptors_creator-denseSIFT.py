@@ -25,7 +25,7 @@ def dense_keypoints(img, scaleLevels=1, scaleFactor=1.2, varyStepWithScale=False
 siftdesc = cv2.xfeatures2d.SIFT_create()
 
 
-folders_names = ['bishop','king','knight','pawn','queen','rock','square']
+folders_names = ['bishop','king','knight','pawn','queen','rook','square']
 
 print "\nNumber of descriptors:\n"
 # Go through each folder containing pictures of the chess pieces

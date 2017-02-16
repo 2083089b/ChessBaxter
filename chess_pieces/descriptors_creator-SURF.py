@@ -9,7 +9,7 @@ from sklearn.externals import joblib
 surf = cv2.SURF_create(400)
 
 
-folders_names = ['bishop','king','knight','pawn','queen','rock','square']
+folders_names = ['bishop','king','knight','pawn','queen','rook','square']
 
 print "\nNumber of descriptors:\n"
 # Go through each folder containing pictures of the chess pieces

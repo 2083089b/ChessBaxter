@@ -8,10 +8,10 @@ def predict(img1):
 
     ### Read image and compute keypoints and descriptors ###
     ### USED BEFORE THIS WAS CHANGED TO A FUNCTION
-    #img_name = 'rock/rock1.png'
+    #img_name = 'rook/rook1.png'
     #img1 = cv2.imread(img_name,0)
 
-    dictionary = {0:"king", 1:"queen", 2:"bishop", 3:"knight", 4:"pawn", 5:"rock", 6:"square"}
+    dictionary = {0:"king", 1:"queen", 2:"bishop", 3:"knight", 4:"pawn", 5:"rook", 6:"square"}
     siftdesc = cv2.xfeatures2d.SIFT_create()
 
     kp1, des1 = siftdesc.detectAndCompute(img1, None)
@@ -33,7 +33,7 @@ def predict(img1):
         classifiers.append(joblib.load('chess_pieces/classifiers/SIFT/bishop_classifier.pkl'))
         classifiers.append(joblib.load('chess_pieces/classifiers/SIFT/knight_classifier.pkl'))
         classifiers.append(joblib.load('chess_pieces/classifiers/SIFT/pawn_classifier.pkl'))
-        classifiers.append(joblib.load('chess_pieces/classifiers/SIFT/rock_classifier.pkl'))
+        classifiers.append(joblib.load('chess_pieces/classifiers/SIFT/rook_classifier.pkl'))
         #classifiers.append(joblib.load('chess_pieces/classifiers/SIFT/square_classifier.pkl'))
 
         max = float(0.0)

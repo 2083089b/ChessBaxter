@@ -4,11 +4,11 @@ import cv2
 from extra_tools import extract_HOG, chess_train
 from scipy.stats import itemfreq
 
-# 'queen','knight','bishop','rock',
+# 'queen','knight','bishop','rook',
 clf_PKS = chess_train('descriptors/HOG', ['pawn', 'king', 'square'], train_mod="SVM")
 # clf_PKS = chess_train('descriptors/HOG', ['pawn', 'king', 'square'], train_mod="LR")
 clf_QkS = chess_train('descriptors/HOG', ['queen', 'knight', 'square'], train_mod="SVM")
-clf_BRS = chess_train('descriptors/HOG', ['bishop', 'rock', 'square'], train_mod="SVM")
+clf_BRS = chess_train('descriptors/HOG', ['bishop', 'rook', 'square'], train_mod="SVM")
 print "Training done!"
 
 img = cv2.imread("king8.png")

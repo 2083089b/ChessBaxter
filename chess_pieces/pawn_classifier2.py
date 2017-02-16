@@ -8,7 +8,7 @@ from sklearn import cross_validation
 from extra_tools import extract_HOG, chess_train
 
 def pawn_prediction(gray):
-	clf = chess_train('chess_pieces/descriptors/HOG', ['pawn', 'king','queen','knight','bishop','rock'], train_mod="SVC_linear")
+	clf = chess_train('chess_pieces/descriptors/HOG', ['pawn', 'king','queen','knight','bishop','rook'], train_mod="SVC_linear")
 	# print "Training done!"
 
 	# cv2.imshow('',gray)

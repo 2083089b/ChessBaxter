@@ -9,7 +9,7 @@ from sklearn.externals import joblib
 orb = cv2.ORB_create(edgeThreshold=4)
 
 
-folders_names = ['bishop','king','knight','pawn','queen','rock','square']
+folders_names = ['bishop','king','knight','pawn','queen','rook','square']
 
 print "\nNumber of descriptors:\n"
 # Go through each folder containing pictures of the chess pieces

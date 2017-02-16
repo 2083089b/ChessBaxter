@@ -6,7 +6,7 @@ from sklearn.externals import joblib
 
 def predict(img1):
 
-    dictionary = {0:"king", 1:"queen", 2:"bishop", 3:"knight", 4:"pawn", 5:"rock", 6:"square"}
+    dictionary = {0:"king", 1:"queen", 2:"bishop", 3:"knight", 4:"pawn", 5:"rook", 6:"square"}
     orb = cv2.ORB_create(edgeThreshold=4)
 
     kp1, des1 = orb.detectAndCompute(img1, None)
@@ -28,7 +28,7 @@ def predict(img1):
         classifiers.append(joblib.load('chess_pieces/classifiers/ORB/bishop_classifier.pkl'))
         classifiers.append(joblib.load('chess_pieces/classifiers/ORB/knight_classifier.pkl'))
         classifiers.append(joblib.load('chess_pieces/classifiers/ORB/pawn_classifier.pkl'))
-        classifiers.append(joblib.load('chess_pieces/classifiers/ORB/rock_classifier.pkl'))
+        classifiers.append(joblib.load('chess_pieces/classifiers/ORB/rook_classifier.pkl'))
         classifiers.append(joblib.load('chess_pieces/classifiers/ORB/square_classifier.pkl'))
 
         max = float(0.0)

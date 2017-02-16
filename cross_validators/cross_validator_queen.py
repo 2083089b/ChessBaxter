@@ -9,7 +9,7 @@ clf = svm.SVC(kernel='linear', C=1)
 X = joblib.load('../chess_pieces/descriptors/ORB/queen/queen.pkl')
 num_of_positives = len(X)
 
-folders_names = ['pawn','rock','knight','square','king','bishop']
+folders_names = ['pawn','rook','knight','square','king','bishop']
 
 # Read all the negatives
 for folder_name in folders_names:
