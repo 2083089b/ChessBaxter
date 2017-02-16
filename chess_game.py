@@ -27,7 +27,7 @@ while(not board.is_game_over()):
 		board.push(best_move)
 		print "\n\n", board
 		engine.position(board)
-		# time.sleep(1)
+		time.sleep(1)
 	else:
 		print "That move is not valid"
 
