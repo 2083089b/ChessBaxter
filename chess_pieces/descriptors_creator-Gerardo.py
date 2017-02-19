@@ -7,7 +7,7 @@ from extra_tools import extract_HOG
 
 folders_names = ['bishop', 'king', 'knight', 'pawn', 'queen', 'rook', 'square']
 
-words_per_class = 150
+words_per_class = 200
 
 print "\nNumber of descriptors:\n"
 # Go through each folder containing pictures of the chess pieces
@@ -18,7 +18,7 @@ for folder_name in folders_names:
 
     for filename in glob.glob('cropped_pictures/' + folder_name + '/*.png'):
         image = cv2.imread(filename)
-        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        gray = image.copy() #cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         images.append(gray)
 
     descriptors = []
