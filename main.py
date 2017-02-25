@@ -5,6 +5,8 @@ from chessboard_detector import chessboard_homography
 from sliding_windows import my_sliding_window
 import chess
 import chess.uci
+import glob
+from label_image import label_image
 
 img_with_matches, img_with_homography, points = chessboard_homography()
 
@@ -61,7 +63,15 @@ print pieces
 #cv2.resizeWindow('Chessboard Detection', 1568,820)
 #cv2.waitKey(0)
 #cv2.destroyAllWindows()
+results = []
+filenames = []
+for filename in glob.glob('sliding_windows/*.jpg'):
+	filenames.append(filename)
 
+filenames = sorted(filenames)
+
+for filename in filenames:
+	results.append(label_image(filename))
 
 # INTO THE CHESS GAME
-board = chess.Board(current_state_of_the_board)
+#board = chess.Board(current_state_of_the_board)
