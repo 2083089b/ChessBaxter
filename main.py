@@ -15,7 +15,7 @@ corner2 = points[1]
 corner3 = points[16]
 corner4 = points[-1]
 
-print "corners"
+print "Corners' coordinates: "
 print corner1           # TOP RIGHT
 print corner2           # TOP LEFT
 print corner3           # BOTTOM RIGHT
@@ -43,8 +43,6 @@ single_square = area/64
 single_square_side = int(math.sqrt(single_square))
 # print "One square has an average area that is equal to: " + str(single_square) + " and each side is: " + str(single_square_side) + "\n\n"
 
-# cv2.imshow("Window", img_with_homography)
-# cv2.waitKey(0)
 
 cropped_image = img_with_homography[int(corner4[1]-single_square_side):int(corner3[1]),int(corner3[0]):int(corner1[0])]
 
@@ -54,15 +52,10 @@ if(np.shape(cropped_image)[0] == 0 or np.shape(cropped_image)[1] == 0):
 
 # cv2.imshow("Window", cropped_image)
 # cv2.waitKey(0)
-pieces = my_sliding_window(cropped_image, single_square_side, corner1, corner2, corner3, corner4)
+my_sliding_window(cropped_image, single_square_side, corner1, corner2, corner3, corner4)
 
-print pieces
+# print pieces
 
-#cv2.namedWindow('Chessboard Detection',cv2.WINDOW_NORMAL)
-#cv2.imshow('Chessboard Detection',img_with_homography)
-#cv2.resizeWindow('Chessboard Detection', 1568,820)
-#cv2.waitKey(0)
-#cv2.destroyAllWindows()
 results = []
 filenames = []
 for filename in glob.glob('sliding_windows/*.jpg'):

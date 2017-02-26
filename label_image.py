@@ -6,7 +6,8 @@ def label_image(image_path):
 	# print image_name
 	# image_path = "sliding_windows/"+image_name
 	# Read in the image_data
-	image_data = tf.gfile.FastGFile(image_path, 'rb').read()
+	# image_data = tf.gfile.FastGFile(image_path, 'rb').read()
+	image_data = image_path
 
 	# Loads label file, strips off carriage return
 	label_lines = [line.rstrip() for line

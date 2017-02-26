@@ -114,7 +114,6 @@ def chessboard_homography():
 	if(len(list_of_pictures)!=0):
 		# Take the last picture taken and its number to process it
 		counter = list_of_pictures[-1][-6]
-		print counter
 		img2 = cv2.imread('/home/lorenzo/catkin_ws/src/chessboard_detection/src/kinect_images/camera_image'+str(counter)+'.jpeg',0)
 
 
@@ -187,10 +186,6 @@ def chessboard_homography():
 		while(c<len(actual_list_of_points)-1):
 			pt1 = actual_list_of_points[c]
 			pt2 = actual_list_of_points[c+1]
-			if c > len(actual_list_of_points)-3:
-				#cv2.circle(img2, (pt1), 10, (255, 0, 0), 10)
-				print pt1
-				print pt2
 			#cv2.line(img2,pt1,pt2,0,3)
 			c += 2
 
