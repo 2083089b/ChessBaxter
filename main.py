@@ -7,6 +7,15 @@ import chess
 import chess.uci
 import glob
 from label_image import label_image
+import re
+import tensorflow as tf, sys
+
+def atoi(text):
+	return int(text) if text.isdigit() else text
+
+def natural_keys(text):
+	return [ atoi(c) for c in re.split('(\d+)', text) ]
+
 
 img_with_matches, img_with_homography, points = chessboard_homography()
 
@@ -61,10 +70,23 @@ filenames = []
 for filename in glob.glob('sliding_windows/*.jpg'):
 	filenames.append(filename)
 
-filenames = sorted(filenames)
+# Sort by natural keys
+filenames = sorted(filenames,key=natural_keys)
+print filenames
 
+# Unpersists graph from file
+with tf.gfile.FastGFile("retrained_graph.pb", 'rb') as f:
+	graph_def = tf.GraphDef()
+	graph_def.ParseFromString(f.read())
+	_ = tf.import_graph_def(graph_def, name='')
+
+counter = 0
 for filename in filenames:
 	results.append(label_image(filename))
+	print results[-1], counter
+	counter += 1
+	# cv2.imshow("Sliding window", cv2.imread(filename))
+	# cv2.waitKey(0)
 
 # INTO THE CHESS GAME
 #board = chess.Board(current_state_of_the_board)
