@@ -72,12 +72,12 @@ def drawMatches(img1, kp1, img2, kp2, matches):
 		# colour blue
 		cv2.line(out, (int(x1),int(y1)), (int(x2)+cols1,int(y2)), (255, 0, 0), 1)
 
-
+	# cv2.imshow('Matched Features', out)
+	# cv2.waitKey(0)
+	# cv2.destroyAllWindows()
 	# Show the image
 	return out
-	#cv2.imshow('Matched Features', out)
-	#cv2.waitKey(0)
-	#cv2.destroyAllWindows()
+
 
 
 def chessboard_segmentation(img1):
@@ -89,6 +89,7 @@ def chessboard_segmentation(img1):
 			for number in line:
 				points = points + [number]
 	c = 0
+
 	while(c<len(points)):
 		pt1 = (int(points[c]),int(points[c+1]))
 		pt2 = (int(points[c+2]),int(points[c+3]))
@@ -115,6 +116,9 @@ def chessboard_homography():
 		# Take the last picture taken and its number to process it
 		counter = list_of_pictures[-1][-6]
 		img2 = cv2.imread('/home/lorenzo/catkin_ws/src/chessboard_detection/src/kinect_images/camera_image'+str(counter)+'.jpeg',0)
+		print img2
+		# cv2.imshow("i",img2)
+		# cv2.waitKey(0)
 
 
 	# Else loop until a picture appears in that folder
@@ -127,6 +131,7 @@ def chessboard_homography():
 				# Take the last picture taken and its number to process it
 				counter = list_of_pictures[-1][-6]
 				img2 = cv2.imread('/home/lorenzo/catkin_ws/src/chessboard_detection/src/kinect_images/camera_image'+str(counter)+'.jpeg',0)
+
 
 	#rospy.init_node('image_processor')
 
@@ -183,10 +188,11 @@ def chessboard_homography():
 
 		# Draw a line between every pair of points
 		c = 0
+
 		while(c<len(actual_list_of_points)-1):
 			pt1 = actual_list_of_points[c]
 			pt2 = actual_list_of_points[c+1]
-			#cv2.line(img2,pt1,pt2,0,3)
+			# cv2.line(img2,pt1,pt2,0,3)
 			c += 2
 
 

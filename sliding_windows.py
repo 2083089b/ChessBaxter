@@ -22,10 +22,8 @@ def my_sliding_window(image,single_square_side,corner1,corner2,corner3,corner4):
 		#im = Image.fromarray(window)
 		#im.save("window_"+str(counter)+".jpeg")
 		# Draw the window
-		# cv2.imshow('s',image)
-		# cv2.waitKey(0)
-		# cv2.imshow('s',image)
-		# cv2.waitKey(0)
+		cv2.imshow('s',image)
+		cv2.waitKey(0)
 		cv2.imwrite('sliding_windows/sliding_window'+str(counter)+".jpg",window)
 		# label_image(window)
 		clone = image.copy()

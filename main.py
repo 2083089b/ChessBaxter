@@ -2,7 +2,8 @@ import numpy as np
 import cv2
 import math
 from chessboard_detector import chessboard_homography
-from sliding_windows import my_sliding_window
+from sliding_windows import my_sliding_window		# Could be deleted
+from final_sliding_window import final_sliding_window
 import chess
 import chess.uci
 import glob
@@ -24,16 +25,19 @@ corner2 = points[1]
 corner3 = points[16]
 corner4 = points[-1]
 
-print "Corners' coordinates: "
-print corner1           # TOP RIGHT
-print corner2           # TOP LEFT
-print corner3           # BOTTOM RIGHT
-print corner4           # BOTTOM LEFT       for 'camera_image3.jpeg'
+# print "Corners' coordinates: "
+# print corner1           # TOP RIGHT
+# print corner2           # TOP LEFT
+# print corner3           # BOTTOM RIGHT
+# print corner4           # BOTTOM LEFT       for 'camera_image3.jpeg'
 
 # cv2.circle(img_with_homography, (corner1), 10, (255, 0, 0), 10)
 # cv2.circle(img_with_homography, (corner2), 10, (255, 0, 0), 10)
 # cv2.circle(img_with_homography, (corner3), 10, (255, 0, 0), 10)
 # cv2.circle(img_with_homography, (corner4), 10, (255, 0, 0), 10)
+
+# cv2.imshow('homography',img_with_homography)
+# cv2.waitKey(0)
 
 ## Calculate the area of the trapezoid, which is more or less the shape
 ## of the chessboard in the image:
@@ -61,32 +65,45 @@ if(np.shape(cropped_image)[0] == 0 or np.shape(cropped_image)[1] == 0):
 
 # cv2.imshow("Window", cropped_image)
 # cv2.waitKey(0)
-my_sliding_window(cropped_image, single_square_side, corner1, corner2, corner3, corner4)
+#my_sliding_window(cropped_image, single_square_side, corner1, corner2, corner3, corner4)
+final_sliding_window(img_with_homography, points)
+actual_list_of_points = [(1548, 135),(839, 154)]
+c = 0
+while(c<len(actual_list_of_points)-1):
+	pt1 = actual_list_of_points[c]
+	pt2 = actual_list_of_points[c+1]
+	cv2.line(img_with_homography,pt1,pt2,0,3)
+	c += 2
 
-# print pieces
+cv2.imshow("Window", img_with_homography)
+cv2.waitKey(0)
 
-results = []
-filenames = []
-for filename in glob.glob('sliding_windows/*.jpg'):
-	filenames.append(filename)
 
-# Sort by natural keys
-filenames = sorted(filenames,key=natural_keys)
-print filenames
+########## UNCOMMENT FROM HERE
+# results = []
+# filenames = []
+# for filename in glob.glob('sliding_windows/*.jpg'):
+# 	filenames.append(filename)
+#
+# # Sort by natural keys
+# filenames = sorted(filenames,key=natural_keys)
+# print filenames
+#
+# # Unpersists graph from file
+# with tf.gfile.FastGFile("retrained_graph.pb", 'rb') as f:
+# 	graph_def = tf.GraphDef()
+# 	graph_def.ParseFromString(f.read())
+# 	_ = tf.import_graph_def(graph_def, name='')
+#
+# counter = 0
+# for filename in filenames:
+# 	results.append(label_image(filename))
+# 	print results[-1], counter
+# 	counter += 1
+# 	# cv2.imshow("Sliding window", cv2.imread(filename))
+# 	# cv2.waitKey(0)
 
-# Unpersists graph from file
-with tf.gfile.FastGFile("retrained_graph.pb", 'rb') as f:
-	graph_def = tf.GraphDef()
-	graph_def.ParseFromString(f.read())
-	_ = tf.import_graph_def(graph_def, name='')
-
-counter = 0
-for filename in filenames:
-	results.append(label_image(filename))
-	print results[-1], counter
-	counter += 1
-	# cv2.imshow("Sliding window", cv2.imread(filename))
-	# cv2.waitKey(0)
+########### TILL HERE
 
 # INTO THE CHESS GAME
 #board = chess.Board(current_state_of_the_board)
