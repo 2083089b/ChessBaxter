@@ -67,41 +67,48 @@ if(np.shape(cropped_image)[0] == 0 or np.shape(cropped_image)[1] == 0):
 # cv2.waitKey(0)
 #my_sliding_window(cropped_image, single_square_side, corner1, corner2, corner3, corner4)
 final_sliding_window(img_with_homography, points)
-actual_list_of_points = [(1548, 135),(839, 154)]
-c = 0
-while(c<len(actual_list_of_points)-1):
-	pt1 = actual_list_of_points[c]
-	pt2 = actual_list_of_points[c+1]
-	cv2.line(img_with_homography,pt1,pt2,0,3)
-	c += 2
 
-cv2.imshow("Window", img_with_homography)
-cv2.waitKey(0)
+
+# cv2.imshow("Window", img_with_homography)
+# cv2.waitKey(0)
 
 
 ########## UNCOMMENT FROM HERE
-# results = []
-# filenames = []
-# for filename in glob.glob('sliding_windows/*.jpg'):
-# 	filenames.append(filename)
-#
-# # Sort by natural keys
-# filenames = sorted(filenames,key=natural_keys)
-# print filenames
-#
-# # Unpersists graph from file
-# with tf.gfile.FastGFile("retrained_graph.pb", 'rb') as f:
-# 	graph_def = tf.GraphDef()
-# 	graph_def.ParseFromString(f.read())
-# 	_ = tf.import_graph_def(graph_def, name='')
-#
-# counter = 0
-# for filename in filenames:
-# 	results.append(label_image(filename))
-# 	print results[-1], counter
-# 	counter += 1
-# 	# cv2.imshow("Sliding window", cv2.imread(filename))
-# 	# cv2.waitKey(0)
+results = []
+filenames = []
+for filename in glob.glob('sliding_windows/*.jpg'):
+	filenames.append(filename)
+
+# Sort by natural keys
+filenames = sorted(filenames,key=natural_keys)
+
+# Unpersists graph from file
+with tf.gfile.FastGFile("retrained_graph.pb", 'rb') as f:
+	graph_def = tf.GraphDef()
+	graph_def.ParseFromString(f.read())
+	_ = tf.import_graph_def(graph_def, name='')
+
+counter = 0
+for filename in filenames:
+	prediction, score = label_image(filename)
+	print score
+	if score > 0.70:
+		results.append(prediction)
+		print "HI!!!!"
+	else:
+		results.append("empty")
+	# print results[-1], counter
+	counter += 1
+	# cv2.imshow("Sliding window", cv2.imread(filename))
+	# cv2.waitKey(0)
+
+for c in range(0,64):
+	if c%8==0:
+		print "\n"
+	print results[c],
+
+# TODO
+# Convert the current 'results' to be understandable for the chess engine
 
 ########### TILL HERE
 
