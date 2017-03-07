@@ -5,11 +5,14 @@ import math
 # Write to file 64 images representing each square of the chessboard.
 # These images will then be used by tensorflow to predict which piece,
 # if any, sits on them.
-def final_sliding_window(img, lines_coordinates):
+def final_sliding_window(img, lines_coordinates, colour_img):
 
 	mid_point_top_x = lines_coordinates[26][0]
 	mid_point_bottom_x = lines_coordinates[27][0]
 	mid_point_average = int(round(mid_point_top_x+mid_point_bottom_x)/2)
+	# This circle should be in the top right corner of the board
+	# cv2.circle(img, (lines_coordinates[0]), 5, (255, 0, 0), 5)
+	# cv2.imshow('',img)
 	# print mid_point_average
 	global_counter = 0
 	points = []
@@ -63,12 +66,16 @@ def final_sliding_window(img, lines_coordinates):
 			# (the higher c, the closer to the camera, the bigger the sliding_window)
 			if c < 14:
 				sliding_window = img[mean_height-150:mean_height, points[c3][0]:points[c3+1][0]]
+				colour_sliding_window = colour_img[mean_height-150:mean_height, points[c3][0]:points[c3+1][0]]
 			elif c < 18:
 				sliding_window = img[mean_height-200:mean_height, points[c3][0]:points[c3+1][0]]
+				colour_sliding_window = colour_img[mean_height-150:mean_height, points[c3][0]:points[c3+1][0]]
 			else:
-				sliding_window = img[mean_height-250:mean_height, points[c3][0]:points[c3+1][0]]
+				sliding_window = img[mean_height-200:mean_height, points[c3][0]:points[c3+1][0]]
+				colour_sliding_window = colour_img[mean_height-150:mean_height, points[c3][0]:points[c3+1][0]]
 			# cv2.imshow("sliding_window",sliding_window)
 			# cv2.waitKey(0)
 			cv2.imwrite('sliding_windows/sliding_window'+str(global_counter)+".jpg",sliding_window)
+			cv2.imwrite('sliding_windows/with_colours/sliding_window'+str(global_counter)+".jpg",colour_sliding_window)
 			c3 += 1
 			global_counter += 1

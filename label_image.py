@@ -36,7 +36,7 @@ def label_image(image_path):
 				prediction_score = score
 				boo = False
 
-		if prediction_score > 0.70:
-			cv2.imshow("Detected",cv2.imread(image_path))
-			cv2.waitKey(0)
+		# if prediction_score > 0.70:
+		# cv2.imshow("Detected",cv2.imread(image_path))
+		# cv2.waitKey(0)
 		return prediction, prediction_score

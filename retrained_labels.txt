@@ -3,4 +3,5 @@ rook
 pawn
 knight
 queen
+square
 bishop

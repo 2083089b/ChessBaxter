@@ -9,6 +9,13 @@ import re
 
 image_counter = 0
 
+def atoi(text):
+	return int(text) if text.isdigit() else text
+
+def natural_keys(text):
+	return [ atoi(c) for c in re.split('(\d+)', text) ]
+
+
 def drawMatches(img1, kp1, img2, kp2, matches):
 	"""
 	My own implementation of cv2.drawMatches as OpenCV 2.4.9
@@ -93,7 +100,7 @@ def chessboard_segmentation(img1):
 	while(c<len(points)):
 		pt1 = (int(points[c]),int(points[c+1]))
 		pt2 = (int(points[c+2]),int(points[c+3]))
-		cv2.line(img1,pt1,pt2,(0,0,0), 2)
+		# cv2.line(img1,pt1,pt2,(0,0,0), 2)
 		list_of_points.append(pt1)
 		list_of_points.append(pt2)
 		c += 4
@@ -109,13 +116,20 @@ def chessboard_homography():
 	img1 = cv2.imread('/home/lorenzo/catkin_ws/src/chessboard_detection/src/my_chessboard.png',0)
 
 	# Retrieve list of files in the folder where the pictures are
-	list_of_pictures = sorted(glob.glob("kinect_images/*.jpeg"))
+	list_of_pictures = sorted(glob.glob("kinect_images/*.jpeg"),key=natural_keys)
+	list_of_counters = []
+	for picture in list_of_pictures:
+		counter = picture.split('camera_image')[1]
+		counter = counter.split('.')[0]
+		list_of_counters.append(counter)
 
 	# If there exist files - ie pictures - in that folder, retrieve the latest one
 	if(len(list_of_pictures)!=0):
 		# Take the last picture taken and its number to process it
-		counter = list_of_pictures[-1][-6]
+		counter = list_of_counters[-1]
 		img2 = cv2.imread('/home/lorenzo/catkin_ws/src/chessboard_detection/src/kinect_images/camera_image'+str(counter)+'.jpeg',0)
+		colour_img = cv2.imread('/home/lorenzo/catkin_ws/src/chessboard_detection/src/kinect_images/camera_image'+str(counter)+'.jpeg')
+		print counter
 		# print img2
 		# cv2.imshow("i",img2)
 		# cv2.waitKey(0)
@@ -126,10 +140,16 @@ def chessboard_homography():
 		while(len(list_of_pictures)==0):
 			print ("...waiting for a picture...")
 			time.sleep(5)
-			list_of_pictures = glob.glob("kinect_images/*.jpeg")
+			list_of_pictures = sorted(glob.glob("kinect_images/*.jpeg"),key=natural_keys)
+			list_of_counters = []
+			for picture in list_of_pictures:
+				counter = picture.split('camera_image')[1]
+				counter = counter.split('.')[0]
+				list_of_counters.append(counter)
+
 			if(len(list_of_pictures)!=0):
 				# Take the last picture taken and its number to process it
-				counter = list_of_pictures[-1][-6]
+				counter = list_of_counters[-1]
 				img2 = cv2.imread('/home/lorenzo/catkin_ws/src/chessboard_detection/src/kinect_images/camera_image'+str(counter)+'.jpeg',0)
 
 
@@ -176,7 +196,7 @@ def chessboard_homography():
 		h,w = img1.shape
 		pts = np.float32([ [0,0],[0,h-1],[w-1,h-1],[w-1,0] ]).reshape(-1,1,2)
 		dst = cv2.perspectiveTransform(pts,M)
-		#cv2.polylines(img2,[np.int32(dst)],True,255,3)
+		# cv2.polylines(img2,[np.int32(dst)],True,255,3)
 		list_of_points = chessboard_segmentation(img1)
 		pts2 = np.float32(list_of_points).reshape(-1,1,2)
 		dst2 = cv2.perspectiveTransform(pts2,M)
@@ -208,4 +228,4 @@ def chessboard_homography():
 
 
 	img3 = drawMatches(img1,kp1,img2,kp2,good)
-	return img3, img2, actual_list_of_points
+	return colour_img, img3, img2, actual_list_of_points
