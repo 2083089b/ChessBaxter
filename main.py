@@ -8,6 +8,7 @@ import chess
 import chess.uci
 import glob
 from label_image import label_image
+from label_colour import label_colour
 import re
 import tensorflow as tf, sys
 from chess_move import my_next_move
@@ -19,7 +20,7 @@ def atoi(text):
 def natural_keys(text):
 	return [ atoi(c) for c in re.split('(\d+)', text) ]
 
-
+pieces = ["rook","knight","bishop","queen","king","pawn"]
 
 returned_state_of_the_board = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 0"
 result = ""
@@ -49,9 +50,9 @@ while result == "":
 	# cv2.circle(img_with_homography, (corner3), 10, (255, 0, 0), 10)
 	# cv2.circle(img_with_homography, (corner4), 10, (255, 0, 0), 10)
 
-	cv2.imshow('homography',colour_img)
-	cv2.waitKey(0)
-	cv2.destroyAllWindows()
+	# cv2.imshow('homography',colour_img)
+	# cv2.waitKey(0)
+	# cv2.destroyAllWindows()
 
 	## Calculate the area of the trapezoid, which is more or less the shape
 	## of the chessboard in the image:
@@ -96,29 +97,57 @@ while result == "":
 	# Sort by natural keys
 	filenames = sorted(filenames,key=natural_keys)
 
-	# Unpersists graph from file
+	# Unpersists graph from file for chess piece
 	with tf.gfile.FastGFile("retrained_graph.pb", 'rb') as f:
 		graph_def = tf.GraphDef()
 		graph_def.ParseFromString(f.read())
-		_ = tf.import_graph_def(graph_def, name='')
+		_ = tf.import_graph_def(graph_def, name='hi')
 
+	colours = []
 	counter = 0
 	for filename in filenames:
 		prediction, score = label_image(filename)
+
+		# filename_colour = 'sliding_windows/with_colours/sliding_window'+str(counter)+'.jpg'
+		# colour_prediction, colour_score = label_colour(filename_colour)
 		print score
 		if score > 0.50:
 			results.append(prediction)
+
+			if prediction != "square":
+				print "",
+				# colours.append(colour_prediction)
+				print prediction,
+			else:
+				print prediction
 		else:
 			results.append("empty")
+			colours.append("noCol")
 		# print results[-1], counter
 		counter += 1
 		# cv2.imshow("Sliding window", cv2.imread(filename))
 		# cv2.waitKey(0)
 
+	# Unpersists graph from file for colour
+	with tf.gfile.FastGFile("retrained_graph_for_black_and_white.pb", 'rb') as f:
+		graph_def = tf.GraphDef()
+		graph_def.ParseFromString(f.read())
+		_ = tf.import_graph_def(graph_def, name='yo')
+
+	colours = []
+	for c in range(0,64):
+		filename_colour = 'sliding_windows/with_colours/sliding_window'+str(c)+'.jpg'
+		colour_prediction, colour_score = label_colour(filename_colour)
+		colours.append(colour_prediction)
+		print results[c], colour_prediction
+		c += 1
+
 	for c in range(0,64):
 		if c%8==0:
 			print "\n"
-		print results[c],
+		if results[c] in pieces and colours[c] == "blacks":
+			results[c] = results[c].upper()
+		print results[c], colours[c]
 
 	###########
 	######## UNTIL HEREEEE

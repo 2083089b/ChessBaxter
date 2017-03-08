@@ -16,11 +16,12 @@ def label_image(image_path):
 
 
 	with tf.Session() as sess:
+
 		# Feed the image_data as input to the graph and get first prediction
-		softmax_tensor = sess.graph.get_tensor_by_name('final_result:0')
+		softmax_tensor = sess.graph.get_tensor_by_name('hi/final_result:0')
 
 		predictions = sess.run(softmax_tensor, \
-				 {'DecodeJpeg/contents:0': image_data})
+				 {'hi/DecodeJpeg/contents:0': image_data})
 
 		# Sort to show labels of first prediction in order of confidence
 		top_k = predictions[0].argsort()[-len(predictions[0]):][::-1]
@@ -39,4 +40,4 @@ def label_image(image_path):
 		# if prediction_score > 0.70:
 		# cv2.imshow("Detected",cv2.imread(image_path))
 		# cv2.waitKey(0)
-		return prediction, prediction_score
+	return prediction, prediction_score

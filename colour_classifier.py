@@ -40,38 +40,33 @@ def grid_search(X, y, parameters, model):
 ######## Create a classifier with colour histograms to recognise black and white pieces
 ######## class 0 = black, class 1 = white
 
-folders_names = ['pawn','king','knight','queen','rook','bishop']
+folders_names = ['whites', 'blacks']
 whites = []
 blacks = []
 
 
 for folder_name in folders_names:
 
-	for filename in glob.glob('chess_pieces/cropped_pictures/' + folder_name + '/*.png'):
+# for filename in glob.glob('chess_pieces/cropped_pictures/' + folder_name + '/*.png'):
+	for filename in glob.glob('chess_pieces/colour_sliding_windows/'+folder_name+'/*.jpg'):
 
 		image = cv2.imread(filename)
-		gray = image.copy() #cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
-		if filename[35] == 'b':
-			blacks.append(image)
-		else:
+		# gray = image.copy() #cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+		
+		if folder_name == "whites":
 			whites.append(image)
+		else:
+			blacks.append(image)
 
-
+print "hi",len(whites)
+print len(blacks)
 X = []
 y = []
 
 white_counter = 0
-while white_counter < 200:
+while white_counter < 24:
 
 	hist = hog(whites[white_counter])
-	if white_counter == 0:
-		cv2.imshow('',whites[white_counter])
-		cv2.waitKey(0)
-		print whites[white_counter]
-		# plt.figure()
-		# plt.plot(hist)
-		# plt.show()
 	X.append(hist)
 	y.append(1)
 	white_counter += 1

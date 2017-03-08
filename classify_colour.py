@@ -11,6 +11,6 @@ def black_or_white(image):
 	prediction = black_white_classifier.predict(colour_histogram.reshape(1,-1))
 
 	if prediction == 1:
-		return "white"
+		return "white", black_white_classifier.predict_proba(colour_histogram.reshape(1,-1))
 	else:
-		return "black"
+		return "black", black_white_classifier.predict_proba(colour_histogram.reshape(1,-1))
