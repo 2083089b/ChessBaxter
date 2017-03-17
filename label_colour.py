@@ -17,10 +17,10 @@ def label_colour(image_path):
 
 	with tf.Session() as sess2:
 		# Feed the image_data as input to the graph and get first prediction
-		softmax_tensor2 = sess2.graph.get_tensor_by_name('yo/final_result:0')
+		softmax_tensor2 = sess2.graph.get_tensor_by_name('graph2/final_result:0')
 
 		predictions = sess2.run(softmax_tensor2, \
-				 {'yo/DecodeJpeg/contents:0': image_data2})
+				 {'graph2/DecodeJpeg/contents:0': image_data2})
 
 		# Sort to show labels of first prediction in order of confidence
 		top_k = predictions[0].argsort()[-len(predictions[0]):][::-1]

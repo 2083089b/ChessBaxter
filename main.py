@@ -101,7 +101,7 @@ while result == "":
 	with tf.gfile.FastGFile("retrained_graph.pb", 'rb') as f:
 		graph_def = tf.GraphDef()
 		graph_def.ParseFromString(f.read())
-		_ = tf.import_graph_def(graph_def, name='hi')
+		_ = tf.import_graph_def(graph_def, name='graph1')
 
 	colours = []
 	counter = 0
@@ -110,17 +110,16 @@ while result == "":
 
 		# filename_colour = 'sliding_windows/with_colours/sliding_window'+str(counter)+'.jpg'
 		# colour_prediction, colour_score = label_colour(filename_colour)
-		print score
+		# print "score",score,
 		if score > 0.50:
 			results.append(prediction)
-
-			if prediction != "square":
-				print "",
-				# colours.append(colour_prediction)
-				print prediction,
-			else:
-				print prediction
+			print prediction, score
+			# if prediction != "square":
+			# 	print prediction
+			# else:
+			# 	print prediction
 		else:
+			print "empty"
 			results.append("empty")
 			colours.append("noCol")
 		# print results[-1], counter
@@ -132,7 +131,7 @@ while result == "":
 	with tf.gfile.FastGFile("retrained_graph_for_black_and_white.pb", 'rb') as f:
 		graph_def = tf.GraphDef()
 		graph_def.ParseFromString(f.read())
-		_ = tf.import_graph_def(graph_def, name='yo')
+		_ = tf.import_graph_def(graph_def, name='graph2')
 
 	colours = []
 	for c in range(0,64):
@@ -145,9 +144,12 @@ while result == "":
 	for c in range(0,64):
 		if c%8==0:
 			print "\n"
-		if results[c] in pieces and colours[c] == "blacks":
+		if results[c] in pieces and colours[c] == "whites":
 			results[c] = results[c].upper()
-		print results[c], colours[c]
+		if results[c] != "square" or results[c] != "empty":
+			print results[c], colours[c]
+		else:
+			print results[c]
 
 	###########
 	######## UNTIL HEREEEE
@@ -259,7 +261,7 @@ while result == "":
 	chessboard_state_details = " " + returned_state_of_the_board.split(" ", 1)[1]
 	# print "\nDetails:", chessboard_state_details
 	whose_turn = chessboard_state_details[1]
-	print "\nTurn:", whose_turn
+
 	current_state_of_the_board += chessboard_state_details
 
 	if whose_turn == "w":
@@ -270,7 +272,5 @@ while result == "":
 
 
 	time.sleep(1)
-	# TODO
-	# Check colour of the pieces
 
 	########### TILL HERE

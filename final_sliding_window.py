@@ -64,15 +64,19 @@ def final_sliding_window(img, lines_coordinates, colour_img):
 		while c3 < 8:
 			# change the height of the sliding window according to the distance from the camera
 			# (the higher c, the closer to the camera, the bigger the sliding_window)
-			if c < 14:
+			if c < 18:
+
 				sliding_window = img[mean_height-150:mean_height, points[c3][0]:points[c3+1][0]]
 				colour_sliding_window = colour_img[mean_height-150:mean_height, points[c3][0]:points[c3+1][0]]
-			elif c < 18:
-				sliding_window = img[mean_height-200:mean_height, points[c3][0]:points[c3+1][0]]
-				colour_sliding_window = colour_img[mean_height-150:mean_height, points[c3][0]:points[c3+1][0]]
+				# cv2.imshow('',colour_sliding_window)
+				# cv2.waitKey(0)
+				# cv2.destroyAllWindows()
+			# elif c < 18:
+			# 	sliding_window = img[mean_height-150:mean_height, points[c3][0]:points[c3+1][0]]
+			# 	colour_sliding_window = colour_img[mean_height-160:mean_height, points[c3][0]:points[c3+1][0]]
 			else:
-				sliding_window = img[mean_height-200:mean_height, points[c3][0]:points[c3+1][0]]
-				colour_sliding_window = colour_img[mean_height-150:mean_height, points[c3][0]:points[c3+1][0]]
+				sliding_window = img[mean_height-160:mean_height, points[c3][0]:points[c3+1][0]]
+				colour_sliding_window = colour_img[mean_height-160:mean_height, points[c3][0]:points[c3+1][0]]
 			# cv2.imshow("sliding_window",sliding_window)
 			# cv2.waitKey(0)
 			cv2.imwrite('sliding_windows/sliding_window'+str(global_counter)+".jpg",sliding_window)

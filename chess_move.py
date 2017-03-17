@@ -7,6 +7,19 @@ def my_next_move(state_of_the_chessboard):
 	# Initialise the board with its current state
 	board = chess.Board(state_of_the_chessboard)
 
+	# Check for end of the game
+	if board.is_checkmate():
+		game_over = "Checkmate, I lost."
+	elif board.is_game_over():
+		game_over = "Draw"
+	else:
+		game_over = ""
+
+	fen = str(board.fen).split("\'")[1]
+
+	if game_over != "":
+		return fen, game_over
+
 	engine = chess.uci.popen_engine("stockfish")
 	engine.uci()
 	engine.ucinewgame()
@@ -16,17 +29,15 @@ def my_next_move(state_of_the_chessboard):
 	board.push(best_move)
 	engine.position(board)
 
-	# Check for checkmate
+	# Check for end of the game
 	if board.is_checkmate():
-		game_over = "checkmate"
+		game_over = "Checkmate, I won."
 	elif board.is_game_over():
-		game_over = "draw"
+		game_over = "Draw"
 	else:
 		game_over = ""
 
-	print board
-	# print type(board.fen)
-	# print str(board.fen)
+
 	fen = str(board.fen).split("\'")[1]
-	# print fen
+
 	return fen, game_over

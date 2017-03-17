@@ -129,7 +129,7 @@ def chessboard_homography():
 		counter = list_of_counters[-1]
 		img2 = cv2.imread('/home/lorenzo/catkin_ws/src/chessboard_detection/src/kinect_images/camera_image'+str(counter)+'.jpeg',0)
 		colour_img = cv2.imread('/home/lorenzo/catkin_ws/src/chessboard_detection/src/kinect_images/camera_image'+str(counter)+'.jpeg')
-		print counter
+		# print counter
 		# print img2
 		# cv2.imshow("i",img2)
 		# cv2.waitKey(0)

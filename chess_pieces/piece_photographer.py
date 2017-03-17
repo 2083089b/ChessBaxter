@@ -28,11 +28,10 @@ def image_callback(msg):
 	try:
 		# Convert your ROS Image message to OpenCV2
 		cv2_img = bridge.imgmsg_to_cv2(msg, "bgr8")
-		# cv2.imshow('cv_img', cv2_img)			THE NEW OPENED WINDOW DOESN'T WORK
 	except CvBridgeError, e:
 		print(e)
 	else:
-		# Save your OpenCV2 image as a jpeg
+		# Save the image in jpeg format, but keep max 100 pictures in the folder
 		global c
 		if(c == 100):
 			c = 0

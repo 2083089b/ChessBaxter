@@ -4,7 +4,9 @@ import cv2
 
 def label_image(image_path):
 
-	# image_path = "sliding_windows/"+image_name
+	# cv2.imshow('',cv2.imread(image_path))
+	# cv2.waitKey(0)
+	# cv2.destroyAllWindows()
 	# Read in the image_data
 	image_data = tf.gfile.FastGFile(image_path, 'rb').read()
 	# image_data = image_path
@@ -18,10 +20,10 @@ def label_image(image_path):
 	with tf.Session() as sess:
 
 		# Feed the image_data as input to the graph and get first prediction
-		softmax_tensor = sess.graph.get_tensor_by_name('hi/final_result:0')
+		softmax_tensor = sess.graph.get_tensor_by_name('graph1/final_result:0')
 
 		predictions = sess.run(softmax_tensor, \
-				 {'hi/DecodeJpeg/contents:0': image_data})
+				 {'graph1/DecodeJpeg/contents:0': image_data})
 
 		# Sort to show labels of first prediction in order of confidence
 		top_k = predictions[0].argsort()[-len(predictions[0]):][::-1]
