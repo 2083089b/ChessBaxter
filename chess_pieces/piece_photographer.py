@@ -36,7 +36,7 @@ def image_callback(msg):
 		if(c == 100):
 			c = 0
 		c  += 1
-		cv2.imwrite('others6/camera_image' + str(c) + '.jpeg', cv2_img)
+		cv2.imwrite('others7/camera_image' + str(c) + '.jpeg', cv2_img)
 		time.sleep(1)
 
 def main():

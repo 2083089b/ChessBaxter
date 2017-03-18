@@ -1,19 +1,16 @@
 import tensorflow as tf, sys
 import cv2
 
-
+# Classify a chess piece
 def label_image(image_path):
 
-	# cv2.imshow('',cv2.imread(image_path))
-	# cv2.waitKey(0)
-	# cv2.destroyAllWindows()
 	# Read in the image_data
 	image_data = tf.gfile.FastGFile(image_path, 'rb').read()
 	# image_data = image_path
 
 	# Loads label file, strips off carriage return
 	label_lines = [line.rstrip() for line
-					   in tf.gfile.GFile("retrained_labels.txt")]
+						in tf.gfile.GFile("retrained_labels.txt")]
 
 
 
@@ -39,7 +36,4 @@ def label_image(image_path):
 				prediction_score = score
 				boo = False
 
-		# if prediction_score > 0.70:
-		# cv2.imshow("Detected",cv2.imread(image_path))
-		# cv2.waitKey(0)
 	return prediction, prediction_score

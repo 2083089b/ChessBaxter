@@ -1,21 +1,21 @@
 import tensorflow as tf, sys
 import cv2
 
-
+# Classify an image of a piece as black or white
 def label_colour(image_path):
 
-	# image_path = "sliding_windows/"+image_name
 	# Read in the image_data
 	image_data2 = tf.gfile.FastGFile(image_path, 'rb').read()
 	# image_data = image_path
 
 	# Loads label file, strips off carriage return
 	label_lines2 = [line.rstrip() for line
-					   in tf.gfile.GFile("retrained_labels_for_black_and_white.txt")]
+						in tf.gfile.GFile("retrained_labels_for_black_and_white.txt")]
 
 
 
 	with tf.Session() as sess2:
+
 		# Feed the image_data as input to the graph and get first prediction
 		softmax_tensor2 = sess2.graph.get_tensor_by_name('graph2/final_result:0')
 
@@ -36,7 +36,4 @@ def label_colour(image_path):
 				prediction_score = score
 				boo = False
 
-		# if prediction_score > 0.70:
-		# cv2.imshow("Detected",cv2.imread(image_path))
-		# cv2.waitKey(0)
 	return prediction, prediction_score

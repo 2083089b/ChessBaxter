@@ -130,7 +130,6 @@ def chessboard_homography():
 		img2 = cv2.imread('/home/lorenzo/catkin_ws/src/chessboard_detection/src/kinect_images/camera_image'+str(counter)+'.jpeg',0)
 		colour_img = cv2.imread('/home/lorenzo/catkin_ws/src/chessboard_detection/src/kinect_images/camera_image'+str(counter)+'.jpeg')
 		# print counter
-		# print img2
 		# cv2.imshow("i",img2)
 		# cv2.waitKey(0)
 
@@ -206,6 +205,15 @@ def chessboard_homography():
 		for point in dst2:
 			actual_list_of_points.append((point[0][0],point[0][1]))
 
+		#######################
+		######## HACK  ########
+		#######################
+		actual_list_of_points = [(1133, 533), (661, 523), (1141, 569), (648,562), (1154,610), (635,603),
+								 (1164,654), (619,647), (1178,705), (602,698), (1193,761), (582,756),
+								 (1209,827), (561,819), (1227,897), (535,894), (1250,981), (508,978),
+								 (1133,533), (1250,981), (1074,532), (1157,980), (1016,531), (1068,980),
+								 (959,530), (975,979), (898,528), (886,979), (841,527), (791,978),
+								 (781,526), (699,979), (723,524), (603,977), (661,523), (508,978)]
 		# Draw a line between every pair of points
 		c = 0
 
@@ -228,4 +236,6 @@ def chessboard_homography():
 
 
 	img3 = drawMatches(img1,kp1,img2,kp2,good)
+
+	# print actual_list_of_points
 	return colour_img, img3, img2, actual_list_of_points

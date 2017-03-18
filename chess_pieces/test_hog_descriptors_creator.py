@@ -20,7 +20,7 @@ for folder_name in folders_names:
 
 	descriptors = []
 
-	counter = 0
+
 	for image in images:
 		# cv2.imshow('',image)
 		# cv2.waitKey(0)

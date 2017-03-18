@@ -7,10 +7,10 @@ from extra_tools_test import get_X_and_y, get_X_and_y_pawn_king
 from sklearn.externals import joblib
 
 
-X,y = get_X_and_y('HOG')
+X,y = get_X_and_y('ORB')
 
 
-clf = joblib.load('classifiers_test/HOG/pawnVall_svm_classifier.pkl')
+clf = joblib.load('classifiers_test/ORB/pawnVall_svm_classifier.pkl')
 
 scores = cross_val_score(clf, X, y)
 print("Cross-validation results")
@@ -20,9 +20,9 @@ print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
 
 
 
-X,y = get_X_and_y_pawn_king('HOG')
+X,y = get_X_and_y_pawn_king('ORB')
 
-clf = joblib.load('classifiers_test/HOG/pawnVking_svm_classifier.pkl')
+clf = joblib.load('classifiers_test/ORB/pawnVking_svm_classifier.pkl')
 
 scores = cross_val_score(clf, X, y)
 print("Cross-validation results")

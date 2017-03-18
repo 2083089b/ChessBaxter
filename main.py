@@ -2,11 +2,11 @@ import numpy as np
 import cv2
 import math
 from chessboard_detector import chessboard_homography
-from sliding_windows import my_sliding_window		# Could be deleted
 from final_sliding_window import final_sliding_window
 import chess
 import chess.uci
 import glob
+from label_square import label_square
 from label_image import label_image
 from label_colour import label_colour
 import re
@@ -14,6 +14,7 @@ import tensorflow as tf, sys
 from chess_move import my_next_move
 import time
 
+# Natural human sorting
 def atoi(text):
 	return int(text) if text.isdigit() else text
 
@@ -27,70 +28,41 @@ result = ""
 # START THE CHESS GAME
 while result == "":
 
-	###########
-	####### UNCOMMENT FROM HERE
-	##############
-
-
 	colour_img, img_with_matches, img_with_homography, points = chessboard_homography()
 
-	corner1 = points[0]
-	corner2 = points[1]
-	corner3 = points[16]
-	corner4 = points[-1]
-
-	# print "Corners' coordinates: "
-	# print corner1           # TOP RIGHT
-	# print corner2           # TOP LEFT
-	# print corner3           # BOTTOM RIGHT
-	# print corner4           # BOTTOM LEFT       for 'camera_image3.jpeg'
-
-	# cv2.circle(img_with_homography, (corner1), 10, (255, 0, 0), 10)
-	# cv2.circle(img_with_homography, (corner2), 10, (255, 0, 0), 10)
-	# cv2.circle(img_with_homography, (corner3), 10, (255, 0, 0), 10)
-	# cv2.circle(img_with_homography, (corner4), 10, (255, 0, 0), 10)
-
-	# cv2.imshow('homography',colour_img)
-	# cv2.waitKey(0)
-	# cv2.destroyAllWindows()
-
-	## Calculate the area of the trapezoid, which is more or less the shape
-	## of the chessboard in the image:
-	## A = (a+b)/2*h        being 'a' and 'b' the bases of the trapezoid and 'h' its height
-	## Very approximate as the height is simply one of the two sides
-	a = math.sqrt((corner1[1]-corner3[1])**2+(corner1[0]-corner3[0])**2)
-	# print "a: " + str(a)
-	b = math.sqrt((corner2[1]-corner4[1])**2+(corner2[0]-corner4[0])**2)
-	# print "b: " + str(b)
-	h = math.sqrt((corner1[1]-corner2[1])**2+(corner1[0]-corner2[0])**2)
-	# print "h: " + str(h)
-	area = (a+b)/2*h
-	# print "Area: " + str(area)
-
-	single_square = area/64
-	single_square_side = int(math.sqrt(single_square))
-	# print "One square has an average area that is equal to: " + str(single_square) + " and each side is: " + str(single_square_side) + "\n\n"
-
-
-	cropped_image = img_with_homography[int(corner4[1]-single_square_side):int(corner3[1]),int(corner3[0]):int(corner1[0])]
-
-	# If the width or the height of the cropped image equal zero, invert the order of the corners
-	if(np.shape(cropped_image)[0] == 0 or np.shape(cropped_image)[1] == 0):
-		cropped_image = img_with_homography[int(corner2[1]-single_square_side):int(corner3[1]),int(corner4[0]):int(corner3[0])]
-
-	# cv2.imshow("Window", cropped_image)
-	# cv2.waitKey(0)
-	#my_sliding_window(cropped_image, single_square_side, corner1, corner2, corner3, corner4)
 	final_sliding_window(img_with_homography, points, colour_img)
 
+	filenames = []
+	square_results = []
+	# Read all the half sliding windows to detect if there is a piece on the squares or not
+	for filename in glob.glob('sliding_windows/halves/*.jpg'):
+		filenames.append(filename)
 
-	# cv2.imshow("Window", img_with_homography)
-	# cv2.waitKey(0)
 
+	# Sort by natural keys
+	filenames = sorted(filenames,key=natural_keys)
 
-	########## UNCOMMENT FROM HERE
+	with tf.gfile.FastGFile("retrained_graph_for_square_or_non_square.pb", 'rb') as f:
+		graph_def = tf.GraphDef()
+		graph_def.ParseFromString(f.read())
+		_ = tf.import_graph_def(graph_def, name='graph3')
+
+	print ".... I'm checking where the pieces are ...."
+	for filename in filenames:
+		prediction, score = label_square(filename)
+
+		if prediction == "square" and score > 0.80:
+			square_results.append("empty")
+
+		else:
+			square_results.append("piece")
+
+	# print square_results
+
+	print ".... I'm checking what pieces they are ...."
 	results = []
 	filenames = []
+	# Read all the sliding windows for piece and colour classification
 	for filename in glob.glob('sliding_windows/*.jpg'):
 		filenames.append(filename)
 
@@ -105,28 +77,33 @@ while result == "":
 
 	colours = []
 	counter = 0
+	print "\n"
 	for filename in filenames:
-		prediction, score = label_image(filename)
+		# If the square was labeled as empty, ignore it. Otherwise compute piece classification
+		if square_results[counter] == "piece":
+			prediction, score = label_image(filename)
 
-		# filename_colour = 'sliding_windows/with_colours/sliding_window'+str(counter)+'.jpg'
-		# colour_prediction, colour_score = label_colour(filename_colour)
-		# print "score",score,
-		if score > 0.50:
-			results.append(prediction)
-			print prediction, score
-			# if prediction != "square":
-			# 	print prediction
-			# else:
-			# 	print prediction
+			if score > 0.45:
+				results.append(prediction)
+				print prediction, score
+
+			else:
+				print "empty", score
+				results.append("empty")
+				colours.append("noCol")
+
 		else:
 			print "empty"
 			results.append("empty")
 			colours.append("noCol")
-		# print results[-1], counter
-		counter += 1
-		# cv2.imshow("Sliding window", cv2.imread(filename))
-		# cv2.waitKey(0)
 
+		counter += 1
+		# For better visual feedback, print new_line for every row
+		if counter%8 == 0 and counter != 0:
+			print "\n"
+
+	print ".... I'm checking what colour the pieces I recognised are ...."
+	print "\n"
 	# Unpersists graph from file for colour
 	with tf.gfile.FastGFile("retrained_graph_for_black_and_white.pb", 'rb') as f:
 		graph_def = tf.GraphDef()
@@ -135,10 +112,14 @@ while result == "":
 
 	colours = []
 	for c in range(0,64):
-		filename_colour = 'sliding_windows/with_colours/sliding_window'+str(c)+'.jpg'
-		colour_prediction, colour_score = label_colour(filename_colour)
-		colours.append(colour_prediction)
-		print results[c], colour_prediction
+		if(results[c] in pieces):
+			filename_colour = 'sliding_windows/sliding_window'+str(c)+'.jpg'
+			colour_prediction, colour_score = label_colour(filename_colour)
+			colours.append(colour_prediction)
+			print results[c], colour_prediction
+		else:
+			colours.append(" ")
+			print results[c]
 		c += 1
 
 	for c in range(0,64):
@@ -151,10 +132,8 @@ while result == "":
 		else:
 			print results[c]
 
-	###########
-	######## UNTIL HEREEEE
-	##########
-
+	#######################
+	#### Example of results
 	# results = ["rook","knight","bishop","queen","king","bishop","knight","rook",
 	# 	   "pawn","pawn","pawn","pawn","pawn","pawn","pawn","pawn",
 	# 	   "square","square","square","square","square","square","square","square",
@@ -163,6 +142,7 @@ while result == "":
 	# 	   "square","square","square","square","square","square","square","square",
 	# 	   "PAWN","PAWN","PAWN","PAWN","PAWN","PAWN","PAWN","PAWN",
 	# 	   "ROOK","KNIGHT","BISHOP","QUEEN","KING","BISHOP","KNIGHT","ROOK"]
+	#######################
 
 
 	# r1bqkb1r/pppp1Qpp/2n2n2/4p3/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 0 4
@@ -254,12 +234,13 @@ while result == "":
 			print ".",
 			consecutive_empty_square_counter += 1
 
-	# IT CAN PROBABLY BE DELETED
-	# if current_state_of_the_board == "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR":
-	# 	current_state_of_the_board += "w KQkq - 0 0"
+	if consecutive_empty_square_counter != 0:
+		current_state_of_the_board += str(consecutive_empty_square_counter)
+
+
 
 	chessboard_state_details = " " + returned_state_of_the_board.split(" ", 1)[1]
-	# print "\nDetails:", chessboard_state_details
+
 	whose_turn = chessboard_state_details[1]
 
 	current_state_of_the_board += chessboard_state_details
@@ -272,5 +253,3 @@ while result == "":
 
 
 	time.sleep(1)
-
-	########### TILL HERE

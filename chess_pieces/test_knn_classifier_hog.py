@@ -9,7 +9,7 @@ from sklearn.neighbors import KNeighborsClassifier
 # PAWN VS REST
 
 X,y = get_X_and_y('HOG')
-
+print np.shape(X)
 k = range(5,102,10)
 parameters = {'n_neighbors': k}
 

@@ -19,7 +19,7 @@ clf1 = KNeighborsClassifier(n_neighbors=best_parameters['n_neighbors'])
 
 clf1.fit(X,y)
 
-joblib.dump(clf1,'classifiers_test/HOG/pawnVall_knn_classifier.pkl')
+joblib.dump(clf1,'classifiers_test/ORB/pawnVall_knn_classifier.pkl')
 
 #########################
 # PAWN VS KING
@@ -35,4 +35,4 @@ clf2 = KNeighborsClassifier(n_neighbors=best_parameters['n_neighbors'])
 
 clf2.fit(X,y)
 
-joblib.dump(clf2,'classifiers_test/HOG/pawnVking_knn_classifier.pkl')
+joblib.dump(clf2,'classifiers_test/ORB/pawnVking_knn_classifier.pkl')
