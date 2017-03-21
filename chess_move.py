@@ -1,6 +1,5 @@
 import chess
 import chess.uci
-import time
 
 
 
