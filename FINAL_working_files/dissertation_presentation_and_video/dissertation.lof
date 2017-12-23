@@ -1,0 +1,55 @@
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Baxter drawing someone's face \cite {Drawing}}}{1}
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Baxter mimicking a person's arms movements \cite {Mimicking}}}{2}
+\contentsline {figure}{\numberline {1.3}{\ignorespaces Baxter working in a factory \cite {RethinkRobotics}}}{2}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces A camera tracking the people walking past it \cite {ObjectTracking}.}}{5}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces An example of a 3-layer neural network.}}{5}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Inception example of classifications on four images \cite {TensorFlowClassification}.}}{6}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces RViz motion planning avoiding an obstacle \cite {RViz}.}}{7}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Baxter's joint names \cite {ArmSpecs}.}}{8}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces ROS topics once 'kinect2\_bridge' has been launched.}}{13}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces 'kinect2\_bridge' and 'image\_view' running.}}{13}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces The chessboard used in this project. Colour variant to the left and grayscale to the right.}}{14}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces findChessboardCorners() in action \cite {FindChessboardCorners}.}}{14}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Matched features between the two chessboard images.}}{15}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Chessboard homography.}}{15}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Chessboard homography and segmentation.}}{16}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces An example of the pictures that were taken to build the training data, all about one meter away from the piece.}}{17}
+\contentsline {figure}{\numberline {3.9}{\ignorespaces A perfectly cropped picture of the knight (NB: The size of this picture was doubled to make it more visible.}}{17}
+\contentsline {figure}{\numberline {3.10}{\ignorespaces The non-blurry photos selected to represent the bishop.}}{18}
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Training data for the bishop.}}{18}
+\contentsline {figure}{\numberline {3.12}{\ignorespaces Three samples from the first, second and third set of queen images.}}{21}
+\contentsline {figure}{\numberline {3.13}{\ignorespaces A sliding window with a king and a pawn behind it.}}{24}
+\contentsline {figure}{\numberline {3.14}{\ignorespaces The length of each square's bottom side for the first row that will be classified. The length of the first four squares on the left is normally slightly different from the length of the four squares on the right and this depends on the rotation of the chessboard.}}{25}
+\contentsline {figure}{\numberline {3.15}{\ignorespaces A picture with the chessboard at the beginning of a game.}}{25}
+\contentsline {figure}{\numberline {3.16}{\ignorespaces The row of white pawns from Figure 3.15\hbox {}.}}{26}
+\contentsline {figure}{\numberline {3.17}{\ignorespaces The detected state of the chessboard before and after colour classification.}}{26}
+\contentsline {figure}{\numberline {3.18}{\ignorespaces The 'training\_data\_builder' script running and saving the sliding windows for future retraining.}}{27}
+\contentsline {figure}{\numberline {3.19}{\ignorespaces The code snippet that interfaces the chess engine with the system.}}{29}
+\contentsline {figure}{\numberline {3.20}{\ignorespaces A sample rank translated into FEN notation \cite {FENNotation}.}}{30}
+\contentsline {figure}{\numberline {3.21}{\ignorespaces Baxter's surprised face \cite {BaxterFaces}.}}{30}
+\contentsline {figure}{\numberline {3.22}{\ignorespaces Baxter's asleep face \cite {BaxterFaces}.}}{30}
+\contentsline {figure}{\numberline {3.23}{\ignorespaces Baxter's sad face \cite {BaxterFaces}.}}{31}
+\contentsline {figure}{\numberline {3.24}{\ignorespaces Baxter's winning move: the dab move.}}{31}
+\contentsline {figure}{\numberline {3.25}{\ignorespaces The final algorithm.}}{32}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces The user view when playing chess with Baxter.}}{34}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces [Left] All the 32 pieces: chessboard not well detected. [Right] No pieces: chessboard detected.}}{34}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces [Left] 6 pieces: chessboard not well detected. [Right] 12 pieces: chessboard detected.}}{35}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces [Left] 18 pieces: chessboard not well detected. [Right] 24 pieces: chessboard not well detected.}}{35}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces [Left] 16 pawns: chessboard not well detected. [Right] 16 pawns plus 4 more pieces: chessboard detected.}}{35}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces [Left]Same as the right picture in Figure 4.5\hbox {} minus the white king: chessboard detected. [Right] Same as the right picture in Figure 4.5\hbox {} minus the black king: chessboard detected.}}{36}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces [Left] Same as the left picture in Figure 4.5\hbox {} minus the two kings: chessboard not well detected. [Right] Exactly the same state as the picture on the left, but with a new picture taken a few seconds later: chessboard detected.}}{36}
+\contentsline {figure}{\numberline {4.8}{\ignorespaces The setup at the beginning of a game.}}{37}
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Three moves each into the game.}}{38}
+\contentsline {figure}{\numberline {4.10}{\ignorespaces The colour classifier makes the first mistake.}}{38}
+\contentsline {figure}{\numberline {4.11}{\ignorespaces A group of pawns close to each other confuses the colour classifier.}}{39}
+\contentsline {figure}{\numberline {4.12}{\ignorespaces 10 pieces on the chessboard.}}{40}
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Eight pieces on the chessboard.}}{40}
+\contentsline {figure}{\numberline {4.14}{\ignorespaces The speed of the system over the span of 14 tests.}}{41}
+\contentsline {figure}{\numberline {4.15}{\ignorespaces The accuracies of the three classifiers returned after 14 tests.}}{41}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }

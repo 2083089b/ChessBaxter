@@ -1,0 +1,85 @@
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: dissertation.aux
+The style file: plain.bst
+Database file #1: bib.bib
+Warning--to sort, need author or key in RethinkRobotics
+Warning--to sort, need author or key in TensorFlowClassification
+Warning--to sort, need author or key in RViz
+Warning--to sort, need author or key in ArmSpecs
+Warning--to sort, need author or key in FindChessboardCorners
+Warning--to sort, need author or key in FENNotation
+Warning--to sort, need author or key in BaxterFaces
+Warning--to sort, need author or key in HighMixLowVolume
+Warning--to sort, need author or key in CVBMVA
+Warning--to sort, need author or key in DIPTartu
+Warning--to sort, need author or key in TensorFlow
+Warning--to sort, need author or key in TensorFlowForPoets
+Warning--to sort, need author or key in Retraining
+Warning--to sort, need author or key in OpenCV
+Warning--to sort, need author or key in ThreeLaws
+Warning--to sort, need author or key in ROS
+Warning--to sort, need author or key in ChessOrigins
+Warning--to sort, need author or key in LevyBet
+Warning--to sort, need author or key in DeepBlue
+Warning--to sort, need author or key in StockfishHP
+Warning--to sort, need author or key in EngineTable
+Warning--to sort, need author or key in BestPlayers
+Warning--to sort, need author or key in ORB
+Warning--to sort, need author or key in LRDef
+Warning--to sort, need author or key in CrossVal
+Warning--to sort, need author or key in ModelPersistence
+Warning--to sort, need author or key in MultiClass
+Warning--to sort, need author or key in PythonChess
+Warning--to sort, need author or key in FEN2
+Warning--to sort, need author or key in TensorFlowGPU
+Warning--empty journal in SimilarProject
+Warning--empty journal in SimilarProject2
+Warning--empty journal in MacProject
+Warning--empty year in MacProject
+Warning--empty journal in PerpendicularCameraProject
+Warning--empty journal in DavidLowe
+Warning--empty journal in ROSPaper
+Warning--empty year in ROSPaper
+You've used 53 entries,
+            2118 wiz_defined-function locations,
+            730 strings with 10612 characters,
+and the built_in function-call counts, 10017 in all, are:
+= -- 923
+> -- 262
+< -- 2
++ -- 131
+- -- 72
+* -- 354
+:= -- 1413
+add.period$ -- 127
+call.type$ -- 53
+change.case$ -- 193
+chr.to.int$ -- 0
+cite$ -- 91
+duplicate$ -- 402
+empty$ -- 1175
+format.name$ -- 72
+if$ -- 2308
+int.to.chr$ -- 0
+int.to.str$ -- 53
+missing$ -- 8
+newline$ -- 236
+num.names$ -- 46
+pop$ -- 433
+preamble$ -- 1
+purify$ -- 142
+quote$ -- 0
+skip$ -- 420
+stack$ -- 0
+substring$ -- 275
+swap$ -- 53
+text.length$ -- 2
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 210
+warning$ -- 38
+while$ -- 48
+width$ -- 55
+write$ -- 419
+(There were 38 warnings)

@@ -1,0 +1,255 @@
+\begin{thebibliography}{10}
+
+\bibitem{DIPTartu}
+1. introduction to image processing.
+\newblock https://sisu.ut.ee/imageprocessing/book/1.
+
+\bibitem{TensorFlow}
+About tensorflow.
+\newblock https://www.tensorflow.org/.
+
+\bibitem{ArmSpecs}
+Baxter arm specifications.
+\newblock http://sdk.rethinkrobotics.com/wiki/File:Baxter\_Joint\_Names.png.
+
+\bibitem{RethinkRobotics}
+{Baxter, Rethink Robotics - Homepage}.
+\newblock http://www.rethinkrobotics.com/baxter/.
+
+\bibitem{CrossVal}
+Cross-validation: evaluating estimator performance.
+\newblock http://scikit-learn.org/stable/modules/cross\_validation.html.
+
+\bibitem{FENNotation}
+Fen made easy - learning forsyth-edwards notation, by chessgames.com.
+\newblock http://www.chessgames.com/fenhelp.html.
+
+\bibitem{DeepBlue}
+Five times ai has beaten humans in competitions: Alphago, chinook, ibm watson
+  and more: Computers vs humans.
+\newblock
+  http://www.techworld.com/picture-gallery/big-data/five-times-ai-has-beaten-humans-in-competitions-3636755/.
+
+\bibitem{FEN2}
+Forsyth-edwards notation.
+\newblock http://kirill-kryukov.com/chess/doc/fen.html.
+
+\bibitem{Retraining}
+How to retrain inception's final layer for new categories.
+\newblock https://www.tensorflow.org/tutorials/image\_retraining.
+
+\bibitem{TensorFlowClassification}
+Image recognition.
+\newblock https://www.tensorflow.org/tutorials/image\_recognition.
+
+\bibitem{TensorFlowGPU}
+Installing tensorflow on ubuntu.
+\newblock https://www.tensorflow.org/install/install\_linux.
+
+\bibitem{HighMixLowVolume}
+{Jabil Circuit}.
+\newblock http://www.jabil.com/technologies/high-mix-low-volume/.
+
+\bibitem{RViz}
+Kinect basics.
+\newblock http://sdk.rethinkrobotics.com/wiki/Kinect\_basics.
+
+\bibitem{LRDef}
+Logistic regression.
+\newblock http://www.saedsayad.com/logistic\_regression.htm.
+
+\bibitem{ModelPersistence}
+Model persistence.
+\newblock http://scikit-learn.org/stable/modules/model\_persistence.html.
+
+\bibitem{MultiClass}
+Multiclass and multilabel algorithms.
+\newblock http://scikit-learn.org/stable/modules/multiclass.html.
+
+\bibitem{OpenCV}
+Opencv (open source computer vision).
+\newblock http://opencv.org/.
+
+\bibitem{ORB}
+Orb (oriented fast and rotated brief).
+\newblock
+  http://docs.opencv.org/3.0-beta/doc/py\_tutorials/py\_feature2d/py\_orb/py\_orb.html.
+
+\bibitem{ChessOrigins}
+The origin of chess.
+\newblock http://www.mark-weeks.com/aboutcom/aa06a14.htm.
+
+\bibitem{PythonChess}
+python-chess release 0.17.0.
+\newblock
+  https://media.readthedocs.org/pdf/python-chess/latest/python-chess.pdf.
+
+\bibitem{EngineTable}
+Rating list.
+\newblock http://www.computerchess.org.uk/ccrl/4040/.
+
+\bibitem{BaxterFaces}
+Rethink robotics: Baxter.
+\newblock http://cobotsguide.com/2016/06/rethink-robotics-baxter/.
+
+\bibitem{ROS}
+Ros - robot operating system.
+\newblock
+  http://www.generationrobots.com/blog/en/2016/03/ros-robot-operating-system-2/.
+
+\bibitem{FindChessboardCorners}
+Solution development.
+\newblock
+  http://iie.fing.edu.uy/investigacion/grupos/gti/timag/trabajos/2014/ajedrez/desarrollo.html.
+
+\bibitem{BestPlayers}
+Standard top 100 players march 2017.
+\newblock https://ratings.fide.com/top.phtml?list=men.
+
+\bibitem{StockfishHP}
+Stockfish chess - about - engine authors.
+\newblock https://stockfishchess.org/about/.
+
+\bibitem{ThreeLaws}
+Technology facts - the history of robotics.
+\newblock
+  http://www.sciencekids.co.nz/sciencefacts/technology/historyofrobotics.html.
+
+\bibitem{TensorFlowForPoets}
+Tensorflow for poets, codelab tutorial.
+\newblock
+  https://codelabs.developers.google.com/codelabs/tensorflow-for-poets/?utm\_campaign=chrome\_series\_machinelearning\_063016\&utm\_source=gdev\&utm\_medium=yt-desc\#0.
+
+\bibitem{CVBMVA}
+{The British Machine Vision Association and Society for Pattern Recognition}.
+\newblock http://www.bmva.org/visionoverview.
+
+\bibitem{LevyBet}
+The unwinnable game.
+\newblock http://www.bbc.co.uk/news/magazine-25032298.
+
+\bibitem{RoboticsWordCoined}
+Alan Brown.
+\newblock The man who coined the term “robotics”.
+\newblock
+  https://memagazineblog.org/2012/04/18/the-man-who-coined-the-term-robotics/.
+
+\bibitem{DeepLearning}
+Nikhil Buduma.
+\newblock Deep learning in a nutshell.
+\newblock http://nikhilbuduma.com/2014/12/29/deep-learning-in-a-nutshell/.
+
+\bibitem{Mimicking}
+Daniel Callander.
+\newblock {Baxter Research Robot: Mimicry using Kinect}.
+\newblock https://www.youtube.com/watch?v=A-zNK2sASZM\#t=00m44s.
+
+\bibitem{SimilarProject}
+Andrew Tzer-Yeu Chen and Kevin I-Kai Wang.
+\newblock Computer vision based chess playing capabilities for the baxter
+  humanoid robot.
+\newblock 2016.
+
+\bibitem{SimilarProject2}
+Andrew Tzer-Yeu Chen and Kevin I-Kai Wang.
+\newblock Computer vision based chess playing capabilities for the baxter
+  humanoid robot.
+\newblock 2016.
+
+\bibitem{Inception}
+Google Developers.
+\newblock Train an image classifier with tensorflow for poets - machine
+  learning recipes 6.
+\newblock https://www.youtube.com/watch?v=cSKfRcEDGUs\&\#t=04m53s.
+
+\bibitem{TensorFlowYoutubeTutorials}
+Josh Gordon~Google Developers.
+\newblock Machine learning recipes with josh gordon.
+\newblock
+  https://www.youtube.com/playlist?list=PLOU2XLYxmsIIuiBfYad6rFYQU\_jL2ryal.
+
+\bibitem{DIP}
+Rafael~C. Gonzalez and Richard~E. Woods.
+\newblock {\em Digital Image Processing, 3rd edition}.
+\newblock Pearson, 2007.
+
+\bibitem{MacProject}
+Jay Hack and Prithvi Ramakrishnan.
+\newblock Cvchess: Computer vision chess.
+
+\bibitem{PerpendicularCameraProject}
+Can Koray and Emre Sumer.
+\newblock A computer vision system for chess game tracking.
+\newblock 2016.
+
+\bibitem{DavidLowe}
+David~G. Lowe.
+\newblock Distinctive image features from scale-invariant keypoints.
+\newblock page~2, 2004.
+
+\bibitem{HOG}
+Satya Mallick.
+\newblock Histogram of oriented gradients.
+\newblock http://www.learnopencv.com/histogram-of-oriented-gradients/.
+
+\bibitem{ColourHist}
+Massimiliano Patacchiola.
+\newblock The simplest classifier: Histogram comparison.
+\newblock
+  https://mpatacchiola.github.io/blog/2016/11/12/the-simplest-classifier-histogram-intersection.html.
+
+\bibitem{ROSPaper}
+Morgan Quigley, Brian Gerkey, Ken Conley, Josh Faust, Tully Foote, Jeremy
+  Leibs, Eric Berger, Rob Wheeler, and Andrew Ng.
+\newblock Ros: an open-source robot operating system.
+\newblock page~3.
+
+\bibitem{SVMDef}
+Sunil Ray.
+\newblock Understanding support vector machine algorithm from examples (along
+  with code).
+\newblock
+  https://www.analyticsvidhya.com/blog/2015/10/understaing-support-vector-machine-example-code/.
+
+\bibitem{BaxterPhysicSpecs}
+Rethink Robotics.
+\newblock Baxter tech specs - physical specifications.
+\newblock http://www.rethinkrobotics.com/baxter/tech-specs/.
+
+\bibitem{BaxterSpecs}
+Rethink Robotics.
+\newblock Hardware specifications.
+\newblock http://sdk.rethinkrobotics.com/wiki/Hardware\_Specifications.
+
+\bibitem{Kinect}
+Margaret Rouse.
+\newblock http://searchhealthit.techtarget.com/definition/Kinect.
+
+\bibitem{WhatIsRobotics}
+Margaret Rouse.
+\newblock Definition of robotics.
+\newblock http://whatis.techtarget.com/definition/robotics.
+
+\bibitem{Drawing}
+TBD.
+\newblock Baxter drawing faces.
+\newblock http://www.gla.ac.uk/schools/computing/playlist/ in 'Study
+  environment', minute 0:48.
+
+\bibitem{KNN}
+Saravanan Thirumuruganathan.
+\newblock A detailed introduction to k-nearest neighbor (knn) algorithm.
+\newblock
+  https://saravananthirumuruganathan.wordpress.com/2010/05/17/a-detailed-introduction-to-k-nearest-neighbor-knn-algorithm/.
+
+\bibitem{iai_kinect2}
+Thiemo Wiedemeyer.
+\newblock {IAI Kinect2}.
+\newblock https://github.com/code-iai/iai\_kinect2, 2014 -- 2015.
+\newblock Accessed October, 2016.
+
+\bibitem{ObjectTracking}
+Dr~John Williamson.
+\newblock Object tracking - {CVMA} lecture slides 14, 2016.
+
+\end{thebibliography}
